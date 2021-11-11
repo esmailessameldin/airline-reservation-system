@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/esmailessameldin/airline-reservation-system/issues"
   },
-  "homepage": "https://github.com/esmailessameldin/airline-reservation-system#readme"
+  "homepage": "https://github.com/esmailessameldin/airline-reservation-system#readme",
+  "dependencies": {
+    "mongoose": "^6.0.12"
+  }
 }
