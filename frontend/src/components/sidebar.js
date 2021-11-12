@@ -1,25 +1,19 @@
 import React from "react";
-import { slide as Menu } from "react-burger-menu";
-
+import { elastic as Menu } from "react-burger-menu";
+import { NavLink } from 'react-router-dom'
 export default props => {
   return (
     // Pass on our props
     <Menu {...props}>
-      <a className="menu-item" href="/">
-        Home
-      </a>
+      <NavLink   to="/">
+   Home
+</NavLink>
 
-      <a className="menu-item" href="/burgers">
-        Burgers
-      </a>
+<NavLink exact={true} activeClassName='active' to="/admin">
+   Admin Login
+</NavLink>
 
-      <a className="menu-item" href="/pizzas">
-        Pizzas
-      </a>
-
-      <a className="menu-item" href="/desserts">
-        Desserts
-      </a>
+      
     </Menu>
   );
 };

@@ -1,39 +1,34 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
+import { Alert } from 'react-bootstrap'
 import Text from 'react-native'
 import { Message } from 'semantic-ui-react'
-
-export default class Homepage extends React.Component {
+const fail=()=>{
+    <Alert style={{top:'0%',left:'500px',position:'fixed'}} variant='danger'>
+    Wrong password ! please try again
+  </Alert>
+}
+export default class AdminLogin extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.register=this.register.bind(this)
-    this.faculty=this.faculty.bind(this)
-    this.admin=this.admin.bind(this);
     this.onChangePassword=this.onChangePassword.bind(this)
-    this.researcher=this.researcher.bind(this)
+
     this.state = {
-     email: '',
-      password:''
+        username: '',
+      password:'',
+      alertstatus:''
     }
   }
   
-  admin(e){
-    window.location='/adminLogin'
-  }
-register(e){
-window.location='/register'
+  
 
-}
-faculty(e){
-  window.location="/faculty"
-}
+
   onChangeEmail(e) {
     this.setState({
-      email: e.target.value
+        username: e.target.value
     })
   }
   onChangePassword(e) {
@@ -42,7 +37,7 @@ faculty(e){
     })
   }
 componentDidMount(){
-  console.log(window.location.hostname)
+  console.log('ADMIN PAGE')
 }
 researcher(e){
   e.preventDefault();
@@ -52,29 +47,28 @@ researcher(e){
     e.preventDefault();
 
     const user = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     }
 
     console.log(user);
 
-    axios.post('http://localhost:5000/users/login', user)
+    axios.post('http://localhost:5000/admin/signin', user)
       .then(res =>{ 
+          
         if(res.data==="user does not exist please try again"){
-          alert("User does not exist please try again")
-          return
+            alert("Admin does not exist please try again")
         }
         else if(res.data==="wrong password"){
-          alert("Wrong password")
-          return
+            alert("Wrong password please try again")
         }else{
-          window.location='/student/'+res.data
+            
         }
       
       });
 
     this.setState({
-      email: '',
+      username: '',
       password:''
       
     })
@@ -82,6 +76,7 @@ researcher(e){
 
   }
 render() {
+    
     var left = 350 + 'px';
     var top = 45+ 'px';
     var padding = 23 + 'px';
@@ -89,19 +84,19 @@ render() {
     var width =120 +'vh';
     return (
         <div >
-            
-             <Message size='massive' color='black'  style={{padding,right,width, top,position:'fixed'}}
-    icon='plane'
-    header='Welcome to the Airplane reservation system'
-    content='Created by The-Outcasts.'
+        
+             <Message size='massive' color='blue'  style={{padding,right,width, top,position:'fixed'}}
+    icon='user'
+    header='This is the Admin Login page.'
+    content='Please enter your credntials below.'
   />
         <form onSubmit={this.onSubmit}>
           <div className="form-group" style = {{width:"100vh",position: 'absolute', left: '50%', top: '40%',
         transform: 'translate(-50%, -50%)'}}> 
-            <label style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Username :</label>
+            <label style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Admin's username :</label>
             <input  type="text"
                 required
-                value={this.state.email}
+                value={this.state.username}
                 onChange={this.onChangeEmail}
                 className="form-control"
                
@@ -118,6 +113,7 @@ render() {
                 />
           </div>
           <div>
+          
     <Button  color='blue' content='Primary' animated  style = {{width:"20vh",position: 'absolute', left: '40%', top: '70%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Login</Button.Content>
@@ -132,7 +128,7 @@ render() {
         <Icon name='arrow right' />
       </Button.Content>
     </Button>
- 
+    
   </div>
   
         </form>
