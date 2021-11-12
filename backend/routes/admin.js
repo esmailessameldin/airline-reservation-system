@@ -15,7 +15,8 @@ router.route('/add').post((req, res) => {
 router.route('/signin').post(async(req,res)=>{
     let status=""
 
-    user.findOne({name:req.body.username}).then(user=>{
+    admin.findOne({name:req.body.username}).then(user=>{
+       
         if(!user){
            status="user does not exist please try again"
            res.send(status)
@@ -25,7 +26,8 @@ router.route('/signin').post(async(req,res)=>{
             if(flag2){
              status="wrong password"
              res.send(status)
-            }else{
+            }else{ 
+                
                 console.log(user)
                return res.send(user.id+""+status)
             }
