@@ -38,7 +38,7 @@ export default class AdminLogin extends React.Component {
     })
   }
 componentDidMount(){
-  console.log('${{{{{')
+ 
 }
   onSubmit(e) {
     e.preventDefault();
