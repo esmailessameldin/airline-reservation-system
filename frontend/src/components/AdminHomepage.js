@@ -4,14 +4,13 @@ import axios from 'axios';
 
 import { Alert } from 'react-bootstrap'
 import Text from 'react-native'
+import { withRouter } from "react-router";
 import { Message } from 'semantic-ui-react'
-const fail=()=>{
-    <Alert style={{top:'0%',left:'500px',position:'fixed'}} variant='danger'>
-    Wrong password ! please try again
-  </Alert>
-}
-export default class AdminLogin extends React.Component {
+
+export default class AdminHomepage extends React.Component {
+
   constructor(props) {
+    
     super(props);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,41 +37,9 @@ export default class AdminLogin extends React.Component {
     })
   }
 componentDidMount(){
-  console.log('${{{{{')
+
 }
-  onSubmit(e) {
-    e.preventDefault();
-
-    const user = {
-      username: this.state.username,
-      password: this.state.password
-    }
-
-    console.log(user);
-console.log(user.username)
-    axios.post('http://localhost:5000/admin/signin', user)
-      .then(res =>{ 
-          
-        if(res.data==="user does not exist please try again"){
-            alert("Admin does not exist please try again")
-        }
-        else if(res.data==="wrong password"){
-            alert("Wrong password please try again")
-        }else{
-          
-            window.location=`/admin-homepage/`+user.username
-        }
-      
-      });
-
-    this.setState({
-      username: '',
-      password:''
-      
-    })
-    
-
-  }
+  
 render() {
     
     var left = 350 + 'px';

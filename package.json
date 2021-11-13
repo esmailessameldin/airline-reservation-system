@@ -25,6 +25,7 @@
     "react-burger-menu": "^3.0.6",
     "react-native-w": "^1.0.0",
     "react-native-web": "^0.17.5",
+    "react-router-dom": "^6.0.2",
     "request": "^2.79.0"
   },
   "devDependencies": {
