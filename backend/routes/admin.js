@@ -56,7 +56,7 @@ res.send(u)
 console.log(u)
   })
   router.route('/update-flight').post(async(req,res)=>{
- const u=await flight.findOneAndUpdate({number:req.params.number},{
+ const u=await flight.findOneAndUpdate({Number:req.params.number},{
     Number:req.body.flightnumber,
     departure:req.body.departure,
     arrival:req.body.arrival,

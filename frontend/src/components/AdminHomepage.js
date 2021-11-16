@@ -10,10 +10,8 @@ import { Message } from 'semantic-ui-react'
 export default class AdminHomepage extends React.Component {
 
   constructor(props) {
-    
     super(props);
-   
-
+    this.onClick = this.onClick.bind(this);
     this.state = {
       flights:[],
       loaded:false
@@ -21,7 +19,10 @@ export default class AdminHomepage extends React.Component {
   }
   
   
-
+onClick(e){
+  e.preventDefault();
+  console.log("nice press")
+}
 
 componentDidMount(){
 axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
@@ -50,27 +51,52 @@ icon='user'
 header='Welcome to the admin homepage'
 
 />
+<Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
+        transform: 'translate(-50%, -50%)'}}  value="login" >
+      <Button.Content visible>Create a new flight</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
 
+<table class="ui striped inverted table"   style={{padding:'20px',right:'140px',width:'160vh', top:'40%',position:'fixed'}}>
+  <thead style={{width:'50vh'}}>
+    <tr>
+      <th>Flight number</th>
+      <th>Flight Departure time</th>
+      <th>Flight arrival time</th>
+      <th>Flight date</th>
+      <th>Number of economy seats</th>
+      <th>Number of Buisness class seats</th>
+      <th>Airport</th>
+    </tr>
+  </thead>
+ 
+   
+  
 
-
-
-<ul  style={{padding:'23px',right:'700px',width:'50vh', top:'30%',position:'fixed'}}>
+<tbody  >
        {this.state.flights.map((item, key) => {
          return (
-           <li key={key}>
 
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Flight number : {item.Number} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Flight Departure time : {item.departure} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Flight arrival time : {item.arrival} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Flight date : {item.date} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Number of economy seats : {item.EconomySeats} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Number of Buisness class seats : {item.BuinessClassSeats} </li>
-             <li style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Airport: : {item.airport} </li>
-           </li>
+          
+           <tr key={key}>
+                   
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departure} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrival} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.date} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.EconomySeats} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.BuinessClassSeats} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.airport} </td>
+           </tr>
          );
        })}
-     </ul>
-</div>)
+     
+     </tbody>
+</table>
+</div>
+)
 
     }
     return (
