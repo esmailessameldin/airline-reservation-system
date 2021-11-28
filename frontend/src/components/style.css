@@ -46,7 +46,7 @@ body {
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #02166d;
+  background: #7085e6;
 }
 
 /* Position and sizing of clickable cross button */
@@ -69,7 +69,7 @@ body {
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-  fill: #0f0350;
+  fill: #41c9ff;
 }
 
 /* Wrapper for item list */

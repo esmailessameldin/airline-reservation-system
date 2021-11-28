@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Component } from 'react';
 import './style.css';
 import background from "./background.jpg";
 import SideBar from "./sidebar";
-export default class Navbar extends React.Component {
+export default class Navbar extends Component {
   showSettings (event) {
     event.preventDefault();
   }

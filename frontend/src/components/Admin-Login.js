@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
 import { Alert } from 'react-bootstrap'
 import Text from 'react-native'
 import { Message } from 'semantic-ui-react'
@@ -10,7 +9,7 @@ const fail=()=>{
     Wrong password ! please try again
   </Alert>
 }
-export default class AdminLogin extends React.Component {
+export default class AdminLogin extends Component  {
   constructor(props) {
     super(props);
     this.onChangeEmail = this.onChangeEmail.bind(this);

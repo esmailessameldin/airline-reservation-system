@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
-import { Alert } from 'react-bootstrap'
-import Text from 'react-native'
+import "./table.css";
 import { withRouter } from "react-router";
 import { Message } from 'semantic-ui-react'
 
-export default class AdminHomepage extends React.Component {
+ class AdminHomepage extends Component {
 
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
     this.state = {
       flights:[],
-      loaded:false
+      loaded:false,
+
     }
   }
   
@@ -59,8 +58,8 @@ header='Welcome to the admin homepage'
       </Button.Content>
     </Button>
 
-<table class="ui striped inverted table"   style={{padding:'20px',right:'140px',width:'160vh', top:'40%',position:'fixed'}}>
-  <thead style={{width:'50vh'}}>
+<table class="ui striped inverted table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
+  <thead >
     <tr>
       <th>Flight number</th>
       <th>Flight Departure time</th>
@@ -118,3 +117,4 @@ header='Welcome to the admin homepage'
     )
   }
 }
+export default withRouter(AdminHomepage);

@@ -5,7 +5,7 @@ import axios from 'axios';
 import Text from 'react-native'
 import { Message } from 'semantic-ui-react'
 
-export default class Homepage extends React.Component {
+export default class Homepage extends Component {
   constructor(props) {
     super(props);
     this.onChangeEmail = this.onChangeEmail.bind(this);

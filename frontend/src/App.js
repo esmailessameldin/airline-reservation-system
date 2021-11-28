@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css'
@@ -12,12 +12,12 @@ function App() {
     <Router>
       <Navbar />
 
-         <Routes>
-         <Route  path="/" element={<Homepage />}></Route>
-         <Route  path="/admin" element={<AdminLogin/>}></Route>
-         <Route  path={"/admin-homepage/:id"} element={<Adminhomepage/>}></Route>
+      
+         <Route  path="/" exact component={Homepage}/>
+         <Route  path="/admin" exact component={AdminLogin}/>
+         <Route  path="/admin-homepage/:id" exact component={Adminhomepage}/>
 
-    </Routes>
+    
     </Router>
 
   );
