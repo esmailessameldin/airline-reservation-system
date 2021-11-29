@@ -80,7 +80,8 @@ router.route("/create-flight").post(async (req, res) => {
   console.log(u);
 });
 router.route("/get-all-flights").get(async (req, res) => {
-  const u = await flight.find({});
+  
+    const u = await flight.find({});
   res.send(u);
   console.log(u);
 });
