@@ -20,10 +20,11 @@ import { Message } from 'semantic-ui-react'
   
 onClick(e){
   e.preventDefault();
-  console.log("nice press")
+  window.location='/'+this.props.match.params.id+'/CreateFlight'
 }
 
 componentDidMount(){
+  console.log(this.props.match.params.id)
 axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
 console.log(res.data)
 this.setState({
@@ -47,7 +48,7 @@ return (<div >
         
   <Message size='massive' color='blue'  style={{padding,right,width, top,position:'fixed'}}
 icon='user'
-header='Welcome to the admin homepage'
+header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
 
 />
 <Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
