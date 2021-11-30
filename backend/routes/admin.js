@@ -41,11 +41,11 @@ router.route("/create-flight").post(async (req, res) => {
   var business = {};
   var y = req.body.flightnumber;
   var firstnumber=req.body.firstnumber;
-  var economy =req.body.economy;
-  var business=req.body.business;
+  var economyNumber =req.body.economy;
+  var businessNumber=req.body.business;
   var a = new Array (firstnumber) ;
-  var b = new Array (economy) ;
-  var c = new Array ( business) ;
+  var b = new Array (economyNumber) ;
+  var c = new Array ( businessNumber) ;
 
   x["class"] = "first" ;
   economy["class"] = "economy" ;
@@ -61,12 +61,11 @@ router.route("/create-flight").post(async (req, res) => {
 
   const u = new flight({
     Number: y,
-    departureAirport: req.body.departureairport,
+    departureAirport: req.body.departureAirport,
     arrivalAirport: req.body.arrivalAirport,
-    date: req.body.date,
     departuretime:req.body.departuretime,
     arrivaltime:req.body.arrivaltime,
-    numberOfPassengers:firstnumber+business+economy,
+    numberOfPassengers:0,
     baggageallowance:req.body.baggageallowance,
     tripDuration:req.body.tripDuration,
     price:req.body.price,
@@ -130,7 +129,7 @@ router.route("/find-flight").post(async (req, res) => {
 router.route("/find-returnflight").post(async (req, res) => {
   var dep = req.body.depairport
   var arr = req.body.arr
-  const u = await flight.find({departure: arr} , {arrival: dep})
+  const u = await flight.find({departureAirport: arr , arrivalAirport: dep})
     res.send(u);
     console.log(u);
   });
