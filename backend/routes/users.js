@@ -96,6 +96,19 @@ router.route('/user-add-flight').post(async(req, res) => {
     console.log(userflight);
 });
 
+router.route("/find-all-user").get(async (req, res) => {
+    const u = await user.find({})
+    res.send(u);
+    console.log(u);
+  });
+
+router.route("/find-user").post(async (req, res) => {
+    const u = await user.findOne({name : req.body.username})
+    res.send(u);
+    console.log(u);
+  });
+
+
 
   
 module.exports = router;
