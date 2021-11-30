@@ -40,9 +40,12 @@ router.route("/create-flight").post(async (req, res) => {
   var economy = {};
   var business = {};
   var y = req.body.flightnumber;
-  var a = new Array ( req.body.firstnumber) ;
-  var b = new Array (req.body.economy) ;
-  var c = new Array ( req.body.business) ;
+  var firstnumber=req.body.firstnumber;
+  var economy =req.body.economy;
+  var business=req.body.business;
+  var a = new Array (firstnumber) ;
+  var b = new Array (economy) ;
+  var c = new Array ( business) ;
 
   x["class"] = "first" ;
   economy["class"] = "economy" ;
@@ -58,12 +61,15 @@ router.route("/create-flight").post(async (req, res) => {
 
   const u = new flight({
     Number: y,
-    departure: req.body.departure,
-    arrival: req.body.arrival,
+    departureAirport: req.body.departureairport,
+    arrivalAirport: req.body.arrivalAirport,
     date: req.body.date,
-    EconomySeats: req.body.EconomySeats,
-    BuinessClassSeats: req.body.BuinessClassSeats,
-    airport: req.body.airport,
+    departuretime:req.body.departuretime,
+    arrivaltime:req.body.arrivaltime,
+    numberOfPassengers:firstnumber+business+economy,
+    baggageallowance:req.body.baggageallowance,
+    tripDuration:req.body.tripDuration,
+    price:req.body.price,
   });
   await u.save();
   flight
