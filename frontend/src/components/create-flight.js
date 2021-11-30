@@ -15,18 +15,18 @@ export default class CreateFlight extends Component {
   
 
     this.state = { 
-    name:'',
-    time:'',
-    day:'',
-    capacity:20,
-    credits: 4,
-    students:0,
-    building:'',
-    room:0,
-    teacher:'',
-    crn:'',
-    array:[],
-    exists:false
+      flightnumber: 0,
+      firstclass: 0,
+      economy: 0,
+      business: 0,
+      departureAirport: '',
+      arrivalAirport: '',
+      departuretime : '',
+      arrivaltime: '',
+      date:'',
+      baggageallowance : 0,
+      tripDuration : '',
+      price: 0,
 
     }
   }
@@ -66,13 +66,7 @@ onChangeDay(e){
     e.preventDefault();
     this.state.array=this.props.match.params.name.split(",")
 const test ={
-      name:this.state.array[0],
-    teacher:this.state.array[1],
-    day:this.state.day,
-    time:this.state.time,
-    building:this.state.building,
-    room:this.state.room,
-    crn:this.state.crn
+    
 }
 console.log(test)
 axios.post('http://localhost:5000/admins/addsections',test)
@@ -93,14 +87,14 @@ render() {
     return (
       
         <div style = {{width:"100vh"}}>
-          <div class="ui compact message"  style={{padding,right,width, top,position:'fixed'}}>
+          <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
            <p>Fill out the form below to sign-up for a new account</p>
          </div>
-        <form style = {{width:"100vh",position: 'absolute', left: '50%', top: '45%',
+        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '50%',
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
           <div className="form-group" > 
-            <label  style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Number of first class seats: </label>
+            <label  style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of first class seats: </label>
             <input  type="text"
          
                 required
@@ -112,7 +106,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'orange',fontWeight: "900",fontstyle:'italic'}}>Number of economy seats: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of economy seats: </label>
             <input  type="text"
          
                 required
@@ -124,7 +118,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Number of  business seats: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of  business seats: </label>
             <input  type="text"
          
                 required
@@ -136,7 +130,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Departure airport: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Departure airport: </label>
             <input  type="text"
          
                 required
@@ -148,7 +142,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Arrival airport: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Arrival airport: </label>
             <input  type="text"
          
                 required
@@ -160,7 +154,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Departure date: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Departure date: </label>
             <input  type="text"
          
                 required
@@ -172,7 +166,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Departure time: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Departure time: </label>
             <input  type="text"
          
                 required
@@ -184,7 +178,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Arrival time: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Arrival time: </label>
             <input  type="text"
          
                 required
@@ -196,7 +190,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'teal',fontWeight: "900",fontstyle:'italic'}}>Baggage allowance: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Baggage allowance: </label>
             <input  type="text"
          
                 required
@@ -208,7 +202,29 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}} >Trip duration: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Trip duration: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.time}
+                onChange={this.onChangeTime}
+                className="form-control"
+               
+                />
+          </div>
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Trip duration: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.time}
+                onChange={this.onChangeTime}
+                className="form-control"
+               
+                />
+          </div>
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Trip duration: </label>
             <input  type="text"
          
                 required
@@ -219,30 +235,21 @@ render() {
                 />
           </div>
             
-          <div className="form-group" > 
-            <label style={{color: 'blue',fontWeight: "900",fontstyle:'italic'}}>Price: </label>
-            <input  type="text"
-         
-                required
-                value={this.state.time}
-                onChange={this.onChangeTime}
-                className="form-control"
-               
-                />
-          </div>
+          
           
           <div>
-          <Button  color='#212121' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '49%', top: '105%',
+         
+  
+  </div>
+  
+        </form>
+        <Button  color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '50%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Submit</Button.Content>
       <Button.Content hidden>
         <Icon name='plane' />
       </Button.Content>
-    </Button>
-  
-  </div>
-  
-        </form>
+    </Button> 
       </div>
     )
   }

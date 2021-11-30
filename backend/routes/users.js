@@ -40,10 +40,6 @@ router.route('/:id').get((req, res) => {
       .then(user => res.json(user))
       .catch(err => res.status(400).json('Error: ' + err));
 });
-
-
-
-
 router.route('/user-add-flight').post(async(req, res) => {
       var seatnumber = req.body.seat ;
       var seatclass = seatnumber.split(" ");

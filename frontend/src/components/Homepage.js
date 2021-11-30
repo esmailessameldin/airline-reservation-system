@@ -90,7 +90,7 @@ render() {
     return (
         <div >
             
-             <Message size='massive' color='black'  style={{padding,right,width, top,position:'fixed'}}
+             <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
     icon='plane'
     header='Welcome to the Airplane reservation system'
     content='Created by The-Outcasts.'
@@ -98,7 +98,7 @@ render() {
         <form onSubmit={this.onSubmit}>
           <div className="form-group" style = {{width:"100vh",position: 'absolute', left: '50%', top: '40%',
         transform: 'translate(-50%, -50%)'}}> 
-            <label style={{color: 'Purple',fontWeight: "900",fontstyle:'italic'}}> Username :</label>
+            <label style={{color: 'orange',fontWeight: "900",fontstyle:'italic'}}> Username :</label>
             <input  type="text"
                 required
                 value={this.state.email}
@@ -109,7 +109,7 @@ render() {
           </div>
           <div  style = {{width:"100vh",position: 'absolute', left: '50%', top: '50%',
         transform: 'translate(-50%, -50%)'}} className="form-group"> 
-            <label style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Password: </label>
+            <label style={{color: 'orange',fontWeight: "900",fontstyle:'italic'}}>Password: </label>
             <input  input type="password" name="password"
                 required
                 value={this.state.password}

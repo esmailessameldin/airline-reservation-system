@@ -46,7 +46,7 @@ render() {
     if (this.state.loaded){
 return (<div >
         
-  <Message size='massive' color='blue'  style={{padding,right,width, top,position:'fixed'}}
+  <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='user'
 header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
 

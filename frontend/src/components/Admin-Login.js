@@ -82,7 +82,7 @@ render() {
     return (
         <div >
         
-             <Message size='massive' color='blue'  style={{padding,right,width, top,position:'fixed'}}
+             <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
     icon='user'
     header='This is the Admin Login page.'
     content='Please enter your credntials below.'
