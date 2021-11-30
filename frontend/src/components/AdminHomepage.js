@@ -59,16 +59,18 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
       </Button.Content>
     </Button>
 
-<table class="ui striped inverted table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
+<table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >
     <tr>
       <th>Flight number</th>
-      <th>Flight Departure time</th>
-      <th>Flight arrival time</th>
-      <th>Flight date</th>
-      <th>Number of economy seats</th>
-      <th>Number of Buisness class seats</th>
-      <th>Airport</th>
+      <th>Departure airport</th>
+      <th>arrival airport</th>
+      <th>Departure time</th>
+      <th>Arrival time</th>
+      <th>Number of passengers</th>
+      <th>Baggage allowance</th>
+      <th>Trip duration</th>
+      <th>Price</th>
     </tr>
   </thead>
  
@@ -83,12 +85,14 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
            <tr key={key}>
                    
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departure} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrival} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.date} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.EconomySeats} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.BuinessClassSeats} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.airport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departuretime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivaltime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.numberOfPassengers} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
            </tr>
          );
        })}
