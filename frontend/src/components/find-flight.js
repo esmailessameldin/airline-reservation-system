@@ -23,7 +23,9 @@ export default class findFlight extends Component {
       arrivalAirport: '',
       departuretime : '',
       arrivaltime: '',
-      numberOfPassengers: 0 
+      numberOfPassengers: 0 ,
+      showtable:false,
+      flights:[]
      
 
     }
@@ -72,8 +74,15 @@ const test ={
 console.log(test)
 axios.post('http://localhost:5000/admin/find-flight',test)
 .then(res=>{
+  console.log(res.data)
+this.setState({
+flights:res.data
+})
+console.log(this.state.flights)
+this.setState({
+  showtable:true
+})
 
-console.log(res.data)
 
 })
 
@@ -85,7 +94,51 @@ render() {
   var padding = 15 + 'px';
   var right =600 +'px';
   var width = +'vh';
+if(this.state.showtable){
+  return(
+  <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
+  <thead >
+    <tr>
+      <th>Flight number</th>
+      <th>Departure airport</th>
+      <th>arrival airport</th>
+      <th>Departure time</th>
+      <th>Arrival time</th>
+      <th>Number of passengers</th>
+      <th>Baggage allowance</th>
+      <th>Trip duration</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+ 
+   
+  
 
+<tbody  >
+       {this.state.flights.map((item, key) => {
+         return (
+
+          
+           <tr key={key}>
+                   
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departuretime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivaltime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.numberOfPassengers} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
+           </tr>
+         );
+       })}
+     
+     </tbody>
+</table>
+  )
+}
+else{
     return (
       
         <div style = {{width:"100vh"}}>
@@ -172,5 +225,6 @@ render() {
     </Button> 
       </div>
     )
+}
   }
 }
