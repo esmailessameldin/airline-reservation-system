@@ -10,13 +10,17 @@ import { Message } from 'semantic-ui-react'
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.Finduser = this.Finduser.bind(this);
     this.state = {
       flights:[],
       loaded:false,
 
     }
   }
-  
+  Finduser(e){
+    e.preventDefault();
+  window.location='/finduser'
+  }
   
 onClick(e){
   e.preventDefault();
@@ -49,7 +53,7 @@ icon='user'
 header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
 
 />
-<Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
+<Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '30%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
       <Button.Content visible>Create a new flight</Button.Content>
       <Button.Content hidden>
@@ -57,6 +61,13 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
       </Button.Content>
     </Button>
 
+    <Button onClick={this.Finduser} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '60%', top: '30%',
+        transform: 'translate(-50%, -50%)'}}  value="login" >
+      <Button.Content visible>Find a user</Button.Content>
+      <Button.Content hidden>
+        <Icon name='search icon' />
+      </Button.Content>
+    </Button>
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >
     <tr>

@@ -25,15 +25,42 @@ onClick(e){
 
 componentDidMount(){
   console.log(this.props.match.params.id)
-axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
-console.log(res.data)
-this.setState({
-  flights:res.data,
-  loaded:true
-})
-console.log(this.state.flights)
+  const user={
+    user:this.props.match.params.id
+  }
+  axios.post('http://localhost:5000/users/find-user',user)
+  .then(res=>{ 
+      console.log(this.state.flights)
+      if(res.data.flights.length>0){
+        for (let i = 0; i < res.data.flights.length; i++) { 
+          this.state.flights.push(res.data.flights[i].flight)
+         
+          };
+      this.setState({
+        newname : res.data.name,
+        newpassword : res.data.password,
+        loaded:true
+        
+      })}
+      if(!res.data.flights.length==0)
+      this.setState({
+        newname : res.data.name,
+        newpassword : res.data.password,
+       loaded:true
+        
+      })
 
-})
+      if(!this.state.flights){
+          this.setState({
+              flights:['empty']
+          })
+      }
+     console.log(this.state.flights)
+     this.setState({
+      showtable:true
+     })
+  })
+  
 }
   
 render() {
@@ -42,6 +69,7 @@ render() {
     var right =250 +'px';
     var width =120 +'vh';
     if (this.state.loaded){
+      console.log(this.state.flights)
 return (<div >
         
   <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
@@ -51,7 +79,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 />
 <Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
-      <Button.Content visible>Create a new flight</Button.Content>
+      <Button.Content visible>Add flight</Button.Content>
       <Button.Content hidden>
         <Icon name='plane' />
       </Button.Content>
@@ -104,11 +132,11 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
     return (
         <div >
         
-             <Message size='massive' color='blue'  style={{padding,right,width, top,position:'fixed'}}
-    icon='user'
-    header='Welcome to the admin homepage'
-   
-  />
+        <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+icon='user'
+header={"Welcome " + this.props.match.params.id + " to your homepage"}
+
+/>
 
 <div style={{padding:'100px',right:'300px',width:'600px', top:'30%',position:'fixed'}} class="ui segment">
   <div class="ui active inverted dimmer">

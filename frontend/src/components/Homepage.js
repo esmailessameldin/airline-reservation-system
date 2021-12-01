@@ -118,7 +118,7 @@ render() {
       </Button.Content>
     </Button>
     <Button  color='purple' content='Secondary'  animated  style = {{width:"20vh",position: 'absolute', left: '50%', top: '70%',
-        transform: 'translate(-50%, -50%)'}} type="submit" value="register" >
+        transform: 'translate(-50%, -50%)'}} onClick={this.register}   value="register" >
       <Button.Content visible>Register</Button.Content>
       <Button.Content hidden>
         <Icon name='arrow right' />

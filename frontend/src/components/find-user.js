@@ -14,7 +14,7 @@ export default class finduser extends Component {
         username: '',
         newname: '' ,
         newpassword: '',
-        flights:[],
+        flights:['empty'],
         showtable:false
 
      
@@ -46,12 +46,25 @@ export default class finduser extends Component {
   axios.post('http://localhost:5000/users/find-user',test)
   .then(res=>{ 
       console.log(res.data)
+      if(res.data.flights.length>0)
       this.setState({
         newname : res.data.name,
         newpassword : res.data.password,
         flights:res.data.flights[0].flight,
         
       })
+      if(!res.data.flights==0)
+      this.setState({
+        newname : res.data.name,
+        newpassword : res.data.password,
+       
+        
+      })
+      if(!this.state.flights){
+          this.setState({
+              flights:['empty']
+          })
+      }
      console.log(this.state.flights)
      this.setState({
       showtable:true
