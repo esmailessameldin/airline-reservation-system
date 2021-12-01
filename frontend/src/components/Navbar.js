@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Component } from 'react';
 import './style.css';
 import background from "./background.jpg";

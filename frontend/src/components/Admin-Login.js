@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-import { Alert } from 'react-bootstrap'
-import Text from 'react-native'
 import { Message } from 'semantic-ui-react'
-const fail=()=>{
-    <Alert style={{top:'0%',left:'500px',position:'fixed'}} variant='danger'>
-    Wrong password ! please try again
-  </Alert>
-}
+
 export default class AdminLogin extends Component  {
   constructor(props) {
     super(props);
@@ -73,8 +67,6 @@ console.log(user.username)
 
   }
 render() {
-    
-    var left = 350 + 'px';
     var top = 45+ 'px';
     var padding = 23 + 'px';
     var right =250 +'px';

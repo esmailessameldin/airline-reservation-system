@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon,Message } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 
 export default class CreateFlight extends Component {
@@ -124,7 +124,7 @@ alert(res.data)
 
   }
 render() {
-  var left = 350 + 'px';
+ 
   var top = 1+ 'px';
   var padding = 15 + 'px';
   var right =600 +'px';

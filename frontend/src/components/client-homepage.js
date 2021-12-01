@@ -5,7 +5,7 @@ import "./table.css";
 import { withRouter } from "react-router";
 import { Message } from 'semantic-ui-react'
 
- class AdminHomepage extends Component {
+ class clienthomepage extends Component {
 
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ return (<div >
         
   <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='user'
-header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
+header={"Welcome " + this.props.match.params.id + " to your homepage"}
 
 />
 <Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
@@ -120,4 +120,4 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
     )
   }
 }
-export default withRouter(AdminHomepage);
+export default withRouter(clienthomepage);

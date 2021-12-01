@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
-import Text from 'react-native'
 import { Message } from 'semantic-ui-react'
 
 export default class Homepage extends Component {
   constructor(props) {
     super(props);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.register=this.register.bind(this)
-    this.faculty=this.faculty.bind(this)
     this.admin=this.admin.bind(this);
     this.onChangePassword=this.onChangePassword.bind(this)
-    this.researcher=this.researcher.bind(this)
     this.state = {
-     email: '',
+     existinguser: '',
       password:''
     }
   }
@@ -28,13 +24,13 @@ register(e){
 window.location='/register'
 
 }
-faculty(e){
-  window.location="/faculty"
-}
-  onChangeEmail(e) {
+
+  onChangeUsername(e) {
+    e.preventDefault();
     this.setState({
-      email: e.target.value
+      existinguser: e.target.value
     })
+    console.log(this.state.existinguser)
   }
   onChangePassword(e) {
     this.setState({
@@ -42,23 +38,20 @@ faculty(e){
     })
   }
 componentDidMount(){
-  console.log(window.location.hostname)
+  console.log(this.state.existinguser)
 }
-researcher(e){
-  e.preventDefault();
-  window.location='/researcherlogin'
-}
+
   onSubmit(e) {
     e.preventDefault();
 
     const user = {
-      email: this.state.email,
+      username: this.state.existinguser,
       password: this.state.password
     }
 
     console.log(user);
 
-    axios.post('http://localhost:5000/users/login', user)
+    axios.post('http://localhost:5000/users/signin', user)
       .then(res =>{ 
         if(res.data==="user does not exist please try again"){
           alert("User does not exist please try again")
@@ -68,7 +61,7 @@ researcher(e){
           alert("Wrong password")
           return
         }else{
-          window.location='/student/'+res.data
+         window.location='/client-homepage/'+this.state.existinguser  
         }
       
       });
@@ -82,7 +75,6 @@ researcher(e){
 
   }
 render() {
-    var left = 350 + 'px';
     var top = 45+ 'px';
     var padding = 23 + 'px';
     var right =250 +'px';
@@ -96,20 +88,20 @@ render() {
     content='Created by The-Outcasts.'
   />
         <form onSubmit={this.onSubmit}>
-          <div className="form-group" style = {{width:"100vh",position: 'absolute', left: '50%', top: '40%',
+          <div className="form-group" style = {{width:"100vh",position: 'absolute',backgroundColor: 'teal', left: '50%', top: '40%',
         transform: 'translate(-50%, -50%)'}}> 
-            <label style={{color: 'orange',fontWeight: "900",fontstyle:'italic'}}> Username :</label>
+            <label style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}> Username :</label>
             <input  type="text"
                 required
-                value={this.state.email}
-                onChange={this.onChangeEmail}
+              value={this.state.existinguser}
+                onChange={this.onChangeUsername}
                 className="form-control"
                
                 />
           </div>
-          <div  style = {{width:"100vh",position: 'absolute', left: '50%', top: '50%',
+          <div  style = {{width:"100vh",position: 'absolute', backgroundColor: 'teal',left: '50%', top: '50%',
         transform: 'translate(-50%, -50%)'}} className="form-group"> 
-            <label style={{color: 'orange',fontWeight: "900",fontstyle:'italic'}}>Password: </label>
+            <label style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Password: </label>
             <input  input type="password" name="password"
                 required
                 value={this.state.password}
