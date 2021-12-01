@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Icon,Message ,List} from 'semantic-ui-react';
 import axios from 'axios';
-
+import "./table2.css";
 
 
 export default class finduser extends Component {
@@ -14,6 +14,8 @@ export default class finduser extends Component {
         username: '',
         newname: '' ,
         newpassword: '',
+        flights:[],
+        showtable:false
 
      
   
@@ -46,11 +48,14 @@ export default class finduser extends Component {
       console.log(res.data)
       this.setState({
         newname : res.data.name,
-        newpassword : res.data.password
-
+        newpassword : res.data.password,
+        flights:res.data.flights[0].flight,
+        
       })
-  
-  
+     console.log(this.state.flights)
+     this.setState({
+      showtable:true
+     })
   })
   
   
@@ -61,12 +66,105 @@ export default class finduser extends Component {
     var padding = 15 + 'px';
     var right =600 +'px';
     var width = +'vh';
-  
+  if(this.state.showtable){
+    return(
+      <div style = {{width:"100vh"}}>
+      <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
+       <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Enter the username you want to search</p>
+     </div>
+    <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '10%',
+    transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
+      
+
+      <div className="form-group" > 
+        <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >UserName: </label>
+        <input  type="text"
+     
+            required
+            value={this.state.username}
+            onChange={this.onChangeusername}
+            className="form-control"
+           
+            />
+      </div>
+    </form>
+    <div style = {{position: 'absolute', width: 'auto',left: '37%', top: '13%',height:'auto',padding:'auto'}} class="ui big inverted blue segment">
+<div class="ui inverted relaxed divided list">
+<div style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}} class="item">
+<div class="content">
+  <div style={{color: 'white',fontWeight: "900",fontstyle:'italic'}} class="header">Username</div>
+ {this.state.newname}
+</div>
+</div>
+
+</div>
+</div>
+<div style = {{position: 'absolute', width: 'auto',left: '48%', top: '13%',height:'auto',padding:'auto'}} class="ui big inverted blue segment">
+<div class="ui inverted relaxed divided list">
+
+<div style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}} class="item">
+<div class="content">
+  <div style={{color: 'white',fontWeight: "900",fontstyle:'italic'}} class="header">Password</div>
+  {this.state.newpassword}
+</div>
+</div>
+
+</div>
+</div>
+<table  class="ui striped inverted blue disabled  table"   style={{right:'140px',width:'160vh', top:'35%',position:'fixed'}}>
+<thead >
+<tr>
+<th>Flight number</th>
+<th>Departure airport</th>
+<th>arrival airport</th>
+<th>Departure time</th>
+<th>Arrival time</th>
+<th>Number of passengers</th>
+<th>Baggage allowance</th>
+<th>Trip duration</th>
+<th>Price</th>
+</tr>
+</thead>
+
+
+
+
+<tbody  >
+ 
+   
+    
+     <tr>
+             
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.Number} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.departureAirport} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.arrivalAirport} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.departuretime} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.arrivaltime} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.numberOfPassengers} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.baggageallowance} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.tripDuration} </td>
+       <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.flights.price} </td>
+     </tr>
+   
+
+</tbody>
+</table>
+    <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '10%',
+    transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
+  <Button.Content visible>Submit</Button.Content>
+  <Button.Content hidden>
+    <Icon name='save' />
+  </Button.Content>
+</Button> 
+  </div>
+    )
+
+  }else{
       return (
         
           <div style = {{width:"100vh"}}>
             <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
-             <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to create a new flight</p>
+             <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Enter the username you want to search</p>
            </div>
           <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '10%',
           transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
@@ -85,20 +183,6 @@ export default class finduser extends Component {
             </div>
 
 
-              
-            <List  style = {{width:"17vh",position: 'absolute', left: '10%', top: '300%',
-          transform: 'translate(-50%, -50%)'}}>
-                  <List.Item>
-                             <List.Header>user name</List.Header>{this.state.newname}
-                                 </List.Item>
-    <List.Item>
-      <List.Header>password</List.Header>
-      {this.state.newpassword}
-    </List.Item>
-  </List>
-            
-        
-    
           </form>
           <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '10%',
           transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
@@ -109,5 +193,6 @@ export default class finduser extends Component {
       </Button> 
         </div>
       )
+  }
     }
   }
