@@ -103,7 +103,7 @@ router.route("/find-all-user").get(async (req, res) => {
   });
 
 router.route("/find-user").post(async (req, res) => {
-    const u = await user.findOne({name : req.body.username})
+    const u = await user.findOne({name : req.body.user})
     res.send(u);
     console.log(u);
   });
