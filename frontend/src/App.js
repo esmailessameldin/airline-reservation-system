@@ -9,13 +9,16 @@ import Navbar from './components/Navbar'
 import createflight from './components/create-flight'
 import clienthomepage from './components/client-homepage.js'
 import AdminLogin from './components/Admin-Login.js'
-import finduser from './components/find-user';
+import finduser from './components/find-user' 
+import findflight from './components/find-flight.js'
 function App() {
   return (
     <Router>
       <Navbar />
 
-      <Route  path="/finduser" exact component={finduser}/>
+         <Route  path="/finduser" exact component={finduser}/> 
+
+         <Route  path="/user-find-flight" exact component={findflight}/> 
 
          <Route  path="/" exact component={Homepage}/>
          <Route  path="/admin" exact component={AdminLogin}/>

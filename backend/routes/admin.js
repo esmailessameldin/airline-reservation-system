@@ -115,14 +115,14 @@ router.route("/smite-flight").delete(async (req, res) => {
   res.send("donzo");
 });
 router.route("/find-flight").post(async (req, res) => {
-  const u = await flight.findOne({
+  const u = await flight.find({
     $or: [
-      { departure: req.body.departure },
-      { arrival: req.body.arrival },
-      { date: req.body.date },
-      { EconomySeats: req.body.EconomySeats },
-      { BuinessClassSeats: req.body.BuinessClassSeats },
-      { airport: req.body.airport },
+      { departureAirport: req.body.departureAirport },
+      { arrivalAirport: req.body.arrivalAirport },
+      { departuretime: req.body.departuretime },
+      { arrivaltime: req.body.arrivaltime },
+      { numberOfPassengers: req.body.numberOfPassengers},
+     
     ],
   });
 
