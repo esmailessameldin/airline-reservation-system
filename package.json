@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
     "react-burger-menu": "^3.0.6",
+    "react-native-paper": "^4.10.1",
     "react-native-w": "^1.0.0",
     "react-native-web": "^0.17.5",
     "react-router": "^6.0.2",

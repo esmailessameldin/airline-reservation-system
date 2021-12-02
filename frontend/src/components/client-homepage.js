@@ -20,7 +20,7 @@ import { Message } from 'semantic-ui-react'
   
 onClick(e){
   e.preventDefault();
-  window.location='/addflight'
+  window.location='/addflight/'+this.props.match.params.id
 }
 
 componentDidMount(){
@@ -52,12 +52,13 @@ componentDidMount(){
 
       if(!this.state.flights){
           this.setState({
-              flights:['empty']
+              flights:['empty'],
+              loaded:true
           })
       }
      console.log(this.state.flights)
      this.setState({
-      showtable:true
+      loaded:true
      })
   })
   

@@ -7,8 +7,7 @@ import economyimage from './economy.jpg'
 import businessimage from './buisnessclass.jpg'
 import { Text } from "react-native";
 import { Button, Icon,Message } from 'semantic-ui-react';
-import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/material';
-
+import { RadioButton } from 'react-native-paper';
         export default class Addflight extends Component {
             
           constructor(props) {
@@ -17,9 +16,18 @@ import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/ma
             this.onClick=this.onClick.bind(this)
             this.onClick2=this.onClick2.bind(this)
             this.onClick3=this.onClick3.bind(this)
+            this.onClick4=this.onClick4.bind(this)
      
             this.state = {
               flights: [],
+              final:{
+                seat:'',
+                username:'',
+                flightnum:'',
+                returnf:false
+                                    
+              },
+              flightNumber:0,
               flightpicked:false,
               containerpicked:false,
               selectedflight:null,
@@ -28,9 +36,11 @@ import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/ma
               freeseatseco:0,
               firstlength:0,
               buslength:0,
+              class:0,
               ecolength:0,
               cabin:[],
-              seat:''
+              seat:'',
+              
               
               
             }
@@ -42,6 +52,7 @@ import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/ma
           book(e,i){
             e.preventDefault();
             console.log(i)
+            this.state.flightNumber=i
             const flight={
               number:i
             }
@@ -84,23 +95,54 @@ import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/ma
           e.preventDefault();
           this.setState({
              seat:this.state.seat+'0 ',
-             containerpicked:true
+             containerpicked:true,
+            flightpicked:false,
+            class:0
           })
-          console.log(this.state.seat)
+          console.log(this.state.cabin[this.state.class].seats)
         }
         onClick2(e){
           e.preventDefault();
           this.setState({
             seat:this.state.seat+'1 ',
-            containerpicked:true
+            containerpicked:true,
+            flightpicked:false,
+            class:1
          })
+         console.log(this.state.seat)
         }
         onClick3(e){
           e.preventDefault();
           this.setState({
             seat:this.state.seat+'2 ',
-            containerpicked:true
+            containerpicked:true,
+            flightpicked:false,
+            class:2
          })
+          console.log(this.state)
+        }
+        onClick4(e,i){
+          e.preventDefault();
+          
+        this.setState({
+            seat:this.state.seat+(i+1),
+            
+         })
+         console.log(this.state.seat)
+       
+          setTimeout(() => {  const final={
+            seat:this.state.seat,
+            username:this.props.match.params.name,
+            flightnum:this.state.flightNumber,
+            returnf:false
+          }
+          axios.post('http://localhost:5000/users/user-add-flight',final).then(res=>{
+            alert(res.data)
+          })
+ 
+        }, 3000);
+         
+        
         }
           componentDidMount(){
             console.log(this.state)
@@ -166,7 +208,7 @@ import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/ma
           top: '40%',
           position: 'absolute'
       }
-            if(this.state.flightpicked){
+            if(this.state.flightpicked && !this.state.containerpicked){
               return(
                 
                 <div>
@@ -187,13 +229,13 @@ header={"Please choose the preferred class"}
       <Button.Content hidden>
         <Icon name="hand point right outline" />
       </Button.Content>
-    </Button><Button  color='purple' content='Primary' animated  style = {{position: 'absolute', left: '49%', top: '70%',
+    </Button><Button  color='purple' onClick={this.onClick2} content='Primary' animated  style = {{position: 'absolute', left: '49%', top: '70%',
         transform: 'translate(-50%, -50%)'}}  >
       <Button.Content visible>Economy class </Button.Content>
       <Button.Content hidden>
         <Icon name="hand point right outline" />
       </Button.Content>
-    </Button><Button  color='purple' content='Primary' animated  style = {{position: 'absolute', left: '82%', top: '70%',
+    </Button><Button  color='purple' onClick={this.onClick3} content='Primary' animated  style = {{position: 'absolute', left: '82%', top: '70%',
         transform: 'translate(-50%, -50%)'}}  >
       <Button.Content visible>Buisness class</Button.Content>
       <Button.Content hidden>
@@ -209,7 +251,7 @@ header={"Please choose the preferred class"}
 
             }
             
-            if(!this.state.flightpicked){
+            if(!this.state.flightpicked && !this.state.containerpicked){
                 return(
                   
                   <div>
@@ -268,20 +310,34 @@ header={"Please choose one of the avilable flights below"}
                   
           }
           
-        if(this.state.containerpicked){
-        return (<div class="flex-container">
-        <FormControl component="fieldset" style={{position:'fixed',top:'40%',left:"20%"}} >
-          
-          <RadioGroup
-          
-          >
-            <FormControlLabel value control={<Radio />} label/>
-            <FormControlLabel value control={<Radio />} label />
-            <FormControlLabel value control={<Radio />} label />
+        if(this.state.containerpicked && !this.state.flightpicked ){
+        return (
+        
+        <div class="flex-container">
+          {this.state.cabin[this.state.class].seats.map((item, key) => {
+            if(!item)
+         return (
+          <div key={key}>
+    <button  onClick={(e) => this.onClick4(e,key)} class={"ui compact green labeled icon button"} >
+  <i class="plane icon"></i>Seat: {key+1}
+</button>
+        </div>
+        
+        )
+        else{
+          return(
+            <button key={key} class="ui red disabled button">
+  <i class="ban icon"></i>
+  Seat {key+1} is taken
+</button>
+
+          )
+        }
+       })}
             
-          </RadioGroup>
           
-        </FormControl>
+          
+        
         </div>
         )}
       }

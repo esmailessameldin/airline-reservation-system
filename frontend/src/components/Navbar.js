@@ -13,6 +13,7 @@ export default class Navbar extends Component {
         <div id="App" style = {{ backgroundImage: `url(${background})`, backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        position:"relative",
         width: '100vw',
         height: '100vh' }}>
         <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />

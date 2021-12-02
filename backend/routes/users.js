@@ -48,6 +48,7 @@ router.route('/user-add-flight').post(async(req, res) => {
      var flightnum = req.body.flightnum ;
      var returnf = req.body.returnf ;
      var randomnumber=Math.floor(Math.random() * 1000001);
+     console.log(this.body)
      var x = {} 
 
     if(returnf){

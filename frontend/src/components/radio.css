@@ -1,5 +1,9 @@
 .flex-container {
   display: flex;
+position:absolute;
   flex-wrap: wrap;
-  background-color: rgb(252, 252, 252);
+  z-index: 1;
+  top:30%;
+  
+ background-color: rgba(245, 238, 238, 0);
 }
