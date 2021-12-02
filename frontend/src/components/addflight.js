@@ -1,184 +1,288 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { CheckBox } from 'react-native'
-import {Table}from 'react-bootstrap'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
-const loading = () => (
-    <div>
-     <Segment style = {{position: 'absolute', left: '50%', top: '39%',
-      transform: 'translate(-50%, -50%)'}}>
-      <Dimmer active>
-        <Loader size='massive'>Loading data</Loader>
-      </Dimmer>
+import style from './image.css'
+import './radio.css'
+import firstimage from './firstclass.jpg'
+import economyimage from './economy.jpg'
+import businessimage from './buisnessclass.jpg'
+import { Text } from "react-native";
+import { Button, Icon,Message } from 'semantic-ui-react';
+import { RadioGroup,FormControl,FormLabel,Radio,FormControlLabel } from '@mui/material';
 
-      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-      <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-    </Segment>
-    </div>)
-   
-    
-        export default class CreateExercise extends Component {
+        export default class Addflight extends Component {
             
           constructor(props) {
             super(props);
-            this.handleClick = this.handleClick.bind(this);
-            this.setSelection=this.setSelection.bind(this)
-            this.onChangecheck=this.onChangecheck.bind(this)
-            
+            this.book=this.book.bind(this)
+            this.onClick=this.onClick.bind(this)
+            this.onClick2=this.onClick2.bind(this)
+            this.onClick3=this.onClick3.bind(this)
      
             this.state = {
-              students: [],
-              loading:false,
-              isSelected:false,
-              attendance:[],
+              flights: [],
+              flightpicked:false,
+              containerpicked:false,
+              selectedflight:null,
+              freeseatsFirst:0,
+              freeseatsbus:0,
+              freeseatseco:0,
+              firstlength:0,
+              buslength:0,
+              ecolength:0,
+              cabin:[],
+              seat:''
+              
+              
             }
 
           }
-        
-componentDidMount(){
+
+
+
+          book(e,i){
+            e.preventDefault();
+            console.log(i)
+            const flight={
+              number:i
+            }
+            axios.post('http://localhost:5000/admin/findlflight ',flight).then(res=>{
+
+            console.log(res.data)
+            this.setState({
+              selectedflight:res.data
+            })
+
+            
+            this.setState({
+           
+              cabin:this.state.selectedflight[0].cabin
+              
+            })
+           
+            for(var i=0;i<this.state.cabin[0].seats.length;i++){
+              if(!this.state.cabin[0].seats[i]){
+                   this.state.freeseatsFirst=this.state.freeseatsFirst+1
+              }
+            }
+            for(var i=0;i<this.state.cabin[1].seats.length;i++){
+              if(!this.state.cabin[1].seats[i]){
+                   this.state.freeseatseco=this.state.freeseatseco+1
+              }
+            }
+            for(var i=0;i<this.state.cabin[2].seats.length;i++){
+              if(!this.state.cabin[2].seats[i]){
+                   this.state.freeseatsbus=this.state.freeseatsbus+1
+              }
+            }
+            this.setState({
+              flightpicked:true})
+            console.log(this.state)
+            })
+
+          }
+        onClick(e){
+          e.preventDefault();
+          this.setState({
+             seat:this.state.seat+'0 ',
+             containerpicked:true
+          })
+          console.log(this.state.seat)
+        }
+        onClick2(e){
+          e.preventDefault();
+          this.setState({
+            seat:this.state.seat+'1 ',
+            containerpicked:true
+         })
+        }
+        onClick3(e){
+          e.preventDefault();
+          this.setState({
+            seat:this.state.seat+'2 ',
+            containerpicked:true
+         })
+        }
+          componentDidMount(){
+            console.log(this.state)
+          axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
+          console.log(res.data)
+          this.setState({
+            flights:res.data,
+            loaded:true
+          })
+          console.log(this.state.flights)
+          
+          })
+          }
+
+              
+          render() {
+           var textstyle={
+              fontSize: 13,
+              fontWeight: "bold",
+              left: '3%', 
+              top: '37%',
+              position: 'absolute',color: 'purple',fontstyle:'oldstyle-nums' ,backgroundColor:"teal"
+            }
+            var textstyle2={
+              fontSize: 13,
+              fontWeight: "bold",
+              left: '35%', 
+              top: '37%',
+              position: 'absolute',color: 'purple',fontstyle:'oldstyle-nums' ,backgroundColor:"teal"
+            }
+            var textstyle3={
+              fontSize: 13,
+              fontWeight: "bold",
+              left: '68%', 
+              top: '37%',
+              position: 'absolute',color: 'purple',fontstyle:'oldstyle-nums' ,backgroundColor:"teal"
+            }
+            var top = 45+ 'px';
+            var padding = 23 + 'px';
+            var right =250 +'px';
+            var width =120 +'vh';
+             var imagestyle={
+             
+              width: 35+'vh',
+              height: 25+'vh',
+              left: '5%', 
+              top: '40%',
+              position: 'absolute'
+          }
+          var imagestyle2={
+             
+            width: 35+'vh',
+            height: 25+'vh',
+            left: '40%', 
+            top: '40%',
+            position: 'absolute'
+        }
+        var imagestyle3={
+             
+          width: 35+'vh',
+          height: 25+'vh',
+          left: '73%', 
+          top: '40%',
+          position: 'absolute'
+      }
+            if(this.state.flightpicked){
+              return(
+                
+                <div>
+                   <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+icon='user'
+header={"Please choose the preferred class"}
+
+/>
+<Text style={textstyle}>This is the first class cabin and there is {this.state.freeseatsFirst} free seats</Text>
+<Text style={textstyle2}>This is the economy class cabin and there is {this.state.freeseatsbus} free seats</Text>
+<Text style={textstyle3}>This is the business class cabin and there is {this.state.freeseatseco} free seats</Text>
+<img class="ui small image" src={firstimage} style = {imagestyle} />
+<img class="ui small image" src={economyimage} style = {imagestyle2} />
+<img class="ui small image" src={businessimage} style = {imagestyle3} />
+<Button  color='purple' onClick={this.onClick} content='Primary' animated  style = {{position: 'absolute', left: '14%', top: '70%',
+        transform: 'translate(-50%, -50%)'}}  >
+      <Button.Content visible>First class</Button.Content>
+      <Button.Content hidden>
+        <Icon name="hand point right outline" />
+      </Button.Content>
+    </Button><Button  color='purple' content='Primary' animated  style = {{position: 'absolute', left: '49%', top: '70%',
+        transform: 'translate(-50%, -50%)'}}  >
+      <Button.Content visible>Economy class </Button.Content>
+      <Button.Content hidden>
+        <Icon name="hand point right outline" />
+      </Button.Content>
+    </Button><Button  color='purple' content='Primary' animated  style = {{position: 'absolute', left: '82%', top: '70%',
+        transform: 'translate(-50%, -50%)'}}  >
+      <Button.Content visible>Buisness class</Button.Content>
+      <Button.Content hidden>
+        <Icon name="hand point right outline" />
+      </Button.Content>
+    </Button>
+
+
+
+
+                </div>
+              )
+
+            }
+            
+            if(!this.state.flightpicked){
+                return(
+                  
+                  <div>
+                       <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+icon='user'
+header={"Please choose one of the avilable flights below"}
+
+/>
+<table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
+  <thead >
+    <tr>
+      <th>Flight number</th>
+      <th>Departure airport</th>
+      <th>arrival airport</th>
+      <th>Departure time</th>
+      <th>Arrival time</th>
+      <th>Number of passengers</th>
+      <th>Baggage allowance</th>
+      <th>Trip duration</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+   
   
 
-axios.get('http://localhost:5000/faculty/getenrolled/'+this.props.match.params.name).then(
-    res=>{
-        console.log(res.data)
+<tbody  >
+       {this.state.flights.map((item, key) => {
+         return (
+
+          
+           <tr key={key}>
+                   
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departuretime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivaltime} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.numberOfPassengers} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
+             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book(e, item.Number)}   value="register" >
+      <Button.Content visible>Book</Button.Content>
      
-       for(var i=0;i<res.data.length;i++){
-         var array=res.data[i].split(" ")
-           this.state.students.push(array[0]+" "+array[1])
-           axios.get('http://localhost:5000/users/get/'+array[0]+" "+array[1]).then(res=>{
-            this.state.attendance.push(res.data.attendance)
-            console.log(this.state.attendance)
-            
-              })
-
-       }
-      
-
-    }
-   
-) 
-setTimeout(function() { 
-    console.log(this.state.students)
-   
-    this.setState({
-            
-            
-        loading:false
-    })
-    console.log(this.state.loading)
-    console.log(this.state.students)
-}.bind(this), 10000)
-    
-
- 
-}
-
-onChangecheck(e,o){
-  if(this.state.attendance[o][e]){ this.state.attendance[o][e]=false}else{
-  if(!this.state.attendance[o][e]){this.state.attendance[o][e]=true}}
- this.forceUpdate()
- const user ={
-   array:this.state.attendance[o]
- }
-axios.post('http://localhost:5000/users/updateattendance/'+this.state.students[o],user)
-
-}
-setSelection(e){
-  this.setState({ isSelected: true })
-}
-
-
-          handleClick(e) {
-            console.log(e);
-            window.location = "/majors/" + e;
-          }
-
-          render() {
-            
-            if(this.state.loading){
-                return loading()
+    </Button></td>
+           </tr>
+         );
+       })}
+     
+     </tbody>
+</table>
+</div>
+                )
                   
           }
-        
-        return (
-          <div>
+          
+        if(this.state.containerpicked){
+        return (<div class="flex-container">
+        <FormControl component="fieldset" style={{position:'fixed',top:'40%',left:"20%"}} >
+          
+          <RadioGroup
+          
+          >
+            <FormControlLabel value control={<Radio />} label/>
+            <FormControlLabel value control={<Radio />} label />
+            <FormControlLabel value control={<Radio />} label />
             
-          <Table  style= {{left: '0%', top: '100%'}} >
-           <thead class="table table-dark">
-             <tr>
-               <th>Name</th>
-               <th>1</th>
-               <th>2</th>
-               <th>3</th>
-               <th>4</th>
-               <th>5</th>
-               <th>6</th>
-               <th>7</th>
-               <th>8</th>
-               <th>9</th>
-               <th>10</th>
-               <th>11</th>
-               <th>12</th>
-               <th>13</th>
-               <th>14</th>
-               <th>15</th>
-               <th>16</th>
-               <th>17</th>
-               <th>18</th>
-               <th>19</th>
-               <th>20</th>
-               <th>21</th>
-               <th>22</th>
-               <th>23</th>
-               <th>24</th>
-               <th>25</th>
-               <th>26</th>
-               <th>27</th>
-               <th>28</th>
-               <th>29</th>
-               <th>30</th>
-              
-             </tr>
-           </thead>
-           <tbody class="thead-light">
-         {this.state.students.map((item,index) => {
-           return (
-          <tr>
-            <th>{item}</th>
-            {this.state.attendance[index].map((item,key)=>{
-                    return(<th key={key}> 
-                      <CheckBox
-                        value={item}
-                        onValueChange={()=>  this.onChangecheck(key,index)}
-                      />
-                      
-                      
-                                     </th>)
-    
-               
-
-
-            })}
-
-             
-
-         
-          </tr>
-               
-       
-           
-                 
-                  
-               
-             
-             
-           );
-         })}
-             </tbody>
-         </Table>
-         </div>
-   
-        );
+          </RadioGroup>
+          
+        </FormControl>
+        </div>
+        )}
       }
         }

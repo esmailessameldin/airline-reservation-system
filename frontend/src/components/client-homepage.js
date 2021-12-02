@@ -20,7 +20,7 @@ import { Message } from 'semantic-ui-react'
   
 onClick(e){
   e.preventDefault();
-  window.location='/'+this.props.match.params.id+'/CreateFlight'
+  window.location='/addflight'
 }
 
 componentDidMount(){
@@ -42,7 +42,7 @@ componentDidMount(){
         loaded:true
         
       })}
-      if(!res.data.flights.length==0)
+      if(!res.data.flights.length===0)
       this.setState({
         newname : res.data.name,
         newpassword : res.data.password,

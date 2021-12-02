@@ -118,6 +118,7 @@ router.route("/find-flight").post(async (req, res) => {
   const u = await flight.find({
     $or: [
       { departureAirport: req.body.departureAirport },
+      { Number: req.body.number },
       { arrivalAirport: req.body.arrivalAirport },
       { departuretime: req.body.departuretime },
       { arrivaltime: req.body.arrivaltime },
@@ -136,4 +137,12 @@ router.route("/find-returnflight").post(async (req, res) => {
     res.send(u);
     console.log(u);
   });
+  router.route('/findlflight').post(async(req,res)=>{
+var x =req.body.number 
+console.log(x)
+    const u = await flight.find({Number: x })
+      res.send(u);
+      console.log(u);
+
+  })
 module.exports = router;

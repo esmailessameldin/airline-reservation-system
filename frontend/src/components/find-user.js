@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon,Message ,List} from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import "./table2.css";
 
@@ -53,7 +53,7 @@ export default class finduser extends Component {
         flights:res.data.flights[0].flight,
         
       })
-      if(!res.data.flights==0)
+      if(!res.data.flights===0)
       this.setState({
         newname : res.data.name,
         newpassword : res.data.password,
@@ -74,7 +74,7 @@ export default class finduser extends Component {
   
     }
   render() {
-    var left = 350 + 'px';
+   
     var top = 1+ 'px';
     var padding = 15 + 'px';
     var right =600 +'px';
