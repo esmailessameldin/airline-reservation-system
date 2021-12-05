@@ -37,6 +37,7 @@ onClick2(e,i,u){
   if(this.state.ok)
   axios.post('http://localhost:5000/users/user-cancel-reserved-flights',btngan).then(res=>{
     alert(res.data)
+    window.location.reload(true);
   })
 }
 
