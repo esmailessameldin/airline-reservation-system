@@ -11,6 +11,7 @@ import { Message } from 'semantic-ui-react'
     super(props);
     this.onClick = this.onClick.bind(this);
     this.onClick2 = this.onClick2.bind(this);
+    this.onClick4= this.onClick4.bind(this);
     this.state = {
       flights:[],
       loaded:false,
@@ -25,6 +26,11 @@ import { Message } from 'semantic-ui-react'
 onClick(e){
   e.preventDefault();
   window.location='/addflight/'+this.props.match.params.id
+}
+  
+onClick4(e){
+  e.preventDefault();
+  window.location='/user-find-flight/'+this.props.match.params.id
 }
 onClick2(e,i,u){
   e.preventDefault();
@@ -103,11 +109,19 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 />
 <Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '30%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
-      <Button.Content visible>Add flight</Button.Content>
+      <Button.Content visible>Add Departure flight</Button.Content>
       <Button.Content hidden>
         <Icon name='plane' />
       </Button.Content>
     </Button>
+    <Button onClick={this.onClick4} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '60%', top: '30%',
+        transform: 'translate(-50%, -50%)'}}  value="login" >
+      <Button.Content visible>Find flight</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
+
 
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >

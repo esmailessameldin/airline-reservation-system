@@ -20,7 +20,7 @@ function App() {
 
          <Route  path="/finduser" exact component={finduser}/> 
          <Route  path="/addflight/:name" exact component={addflight}/> 
-         <Route  path="/user-find-flight" exact component={findflight}/> 
+         <Route  path="/user-find-flight/:name" exact component={findflight}/> 
          <Route  path="/register" exact component={Register}/> 
          <Route  path="/" exact component={Homepage}/>
          <Route  path="/admin" exact component={AdminLogin}/>
