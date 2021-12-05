@@ -5,10 +5,6 @@ let booking = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
-
-
-
-
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
   
 var logged=req.body.username
@@ -39,7 +35,8 @@ if(seatclass[0] == "C")
 const y=await flight.findOneAndUpdate({Number:flightnum},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass[0]+".seats."+seatclass[1]]:false}},{new:true})
   const l=await user.findOneAndUpdate({name:logged},{$pull:{flights:{Bookingnumber:booking}}},{new:true})
 var flightNumber=y.Number
-var flightPrice=y.pricce
+var flightPrice=y.price
+var email =k.email
     console.log(l)
     res.send("Reservation cancelled");
     const transporter = nodemailer.createTransport({
@@ -52,9 +49,9 @@ var flightPrice=y.pricce
       
       const mailOptions = {
         from: 'airlinereservationguc@gmail.com',
-        to: 'Rgsitered-User-who-cancelled-their-reservation@gmail.com',
+        to: k.Email,
         subject: 'Cancelled Reseravtion',
-        text: 'Dear Client, you recently cancelled your flight  ' +flightNumber+'  and the amount refundable is  '+flightPrice
+        text: 'Dear Client, you recently cancelled your flight  ' +flightNumber+'  and the amount refundable is  '+flightPrice+" egp"
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -66,7 +63,7 @@ var flightPrice=y.pricce
       });
  
   });
-  router.route("/update-user").post(async (req, res) => {
+router.route("/update-user").post(async (req, res) => {
   const u = await flight.findOneAndUpdate(
     {
       
@@ -84,6 +81,10 @@ router.route('/add').post((req, res) => {
     const u = new user({
         name: req.body.name,
         password:req.body.password,
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        passportNumber:req.body.passportNumber,
+        Email:req.body.Email,
         });
   u .save()
     .then(() => res.json('User added!'))

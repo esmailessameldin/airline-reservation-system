@@ -18,9 +18,11 @@ export default class Homepage extends Component {
   }
   
   admin(e){
+    e.preventDefault();
     window.location='/adminLogin'
   }
 register(e){
+   e.preventDefault();
 window.location='/register'
 
 }

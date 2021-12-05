@@ -7,11 +7,20 @@ export default class CreateFlight extends Component {
     super(props);
     this.onChangeusername= this.onChangeusername.bind(this);
     this.onChangepassword = this.onChangepassword.bind(this);
+    this.onChangeuserfirstname= this.onChangeuserfirstname.bind(this);
+    this.onChangelastname = this.onChangelastname.bind(this);
+    this.onChangeemail= this.onChangeemail.bind(this);
+    this.onChangepassport = this.onChangepassport.bind(this);
  
     this.onSubmit=this.onSubmit.bind(this)
     this.state = { 
       username: '',
       password: '',
+      firstName: '',
+      lastname: '',
+      email: '',
+      passport: '',
+     
     
     }
   }
@@ -27,7 +36,30 @@ onChangepassword(e){
     password:e.target.value
   })
 }
+onChangeuserfirstname(e){
+  this.setState({
 
+    firstName:e.target.value
+  })
+}
+onChangelastname(e){
+this.setState({
+
+  lastname:e.target.value
+})
+}
+onChangeemail(e){
+  this.setState({
+
+    email:e.target.value
+  })
+}
+onChangepassport(e){
+this.setState({
+
+  passport:e.target.value
+})
+}
 
 
   onSubmit(e) {
@@ -35,6 +67,11 @@ onChangepassword(e){
 const test ={ 
     name:this.state.username,
     password :this.state.password,
+    firstName:this.state.firstName,
+    lastName :this.state.lastname,
+    passportNumber:this.state.passport,
+    Email :this.state.email,
+ 
  
 }
 console.log(test)
@@ -59,7 +96,7 @@ render() {
           <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
            <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to create a new flight</p>
          </div>
-        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '20%',
+        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '30%',
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
          
@@ -89,7 +126,51 @@ render() {
                
                 />
           </div>
-            
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >First name: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.firstName}
+                onChange={this.onChangeuserfirstname}
+                className="form-control"
+               
+                />
+          </div>
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Last name: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.lastname}
+                onChange={this.onChangelastname}
+                className="form-control"
+               
+                />
+          </div>
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Passport number: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.passport}
+                onChange={this.onChangepassport}
+                className="form-control"
+               
+                />
+          </div>
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Email: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.email}
+                onChange={this.onChangeemail}
+                className="form-control"
+               
+                />
+          </div>
+
           
           
           <div>
@@ -98,7 +179,7 @@ render() {
   </div>
   
         </form>
-        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '20%',
+        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '45%', top: '60%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Submit</Button.Content>
       <Button.Content hidden>
