@@ -131,9 +131,9 @@ router.route("/find-flight").post(async (req, res) => {
   console.log(u);
 });
 router.route("/find-returnflight").post(async (req, res) => {
-  var dep = req.body.depairport
+  var dep = req.body.dep
   var arr = req.body.arr
-  const u = await flight.find({departureAirport: arr , arrivalAirport: dep})
+  const u = await flight.find({$and: [{departureAirport: arr  },{ arrivalAirport: dep}]})
     res.send(u);
     console.log(u);
   });

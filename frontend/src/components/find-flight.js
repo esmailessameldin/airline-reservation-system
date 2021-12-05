@@ -92,7 +92,7 @@ render() {
  
   var top = 1+ 'px';
   var padding = 15 + 'px';
-  var right =600 +'px';
+  var right =700 +'px';
   var width = +'vh';
 if(this.state.showtable){
   return(
@@ -143,9 +143,9 @@ else{
       
         <div style = {{width:"100vh"}}>
           <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
-           <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to create a new flight</p>
+           <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to find a flight</p>
          </div>
-        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '20%',
+        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '25%',
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
         
@@ -216,7 +216,7 @@ else{
        
             
         </form>
-        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '20%',
+        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '45%', top: '50%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Submit</Button.Content>
       <Button.Content hidden>

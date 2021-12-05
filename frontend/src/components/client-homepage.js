@@ -109,7 +109,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 />
 <Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '30%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
-      <Button.Content visible>Add Departure flight</Button.Content>
+      <Button.Content visible>Add trip</Button.Content>
       <Button.Content hidden>
         <Icon name='plane' />
       </Button.Content>

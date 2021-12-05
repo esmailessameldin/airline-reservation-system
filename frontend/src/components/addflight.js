@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import style from './image.css'
 import './radio.css'
 import firstimage from './firstclass.jpg'
@@ -19,6 +19,7 @@ import { RadioButton } from 'react-native-paper';
             this.onClick4=this.onClick4.bind(this)
      
             this.state = {
+              returnflights : [] ,
               flights: [],
               final:{
                 seat:'',
@@ -30,6 +31,7 @@ import { RadioButton } from 'react-native-paper';
               flightNumber:0,
               flightpicked:false,
               containerpicked:false,
+              btngana:false,
               selectedflight:null,
               freeseatsFirst:0,
               freeseatsbus:0,
@@ -130,19 +132,31 @@ import { RadioButton } from 'react-native-paper';
          })
          console.log(this.state.seat)
        
-          setTimeout(() => {  const final={
-            seat:this.state.seat,
-            username:this.props.match.params.name,
-            flightnum:this.state.flightNumber,
-            returnf:false
+          setTimeout(() => {  const ret={
+            arr: this.state.selectedflight[0].arrivalAirport,
+            dep: this.state.selectedflight[0].departureAirport
+          
           }
-          axios.post('http://localhost:5000/users/user-add-flight',final).then(res=>{
-            alert(res.data)
-            window.location='/client-homepage/'+this.props.match.params.name
+         
+          axios.post('http://localhost:5000/admin/find-returnflight',ret).then(res=>{
+         
+       this.setState({
+        
+         containerpicked:true ,
+         flightpicked:true,
+         returnflights : res.data
+
+
+       })
+     
+       console.log(res.data)
+     
+  
           })
  
         }, 3000);
          
+
         
         }
           componentDidMount(){
@@ -257,8 +271,8 @@ header={"Please choose the preferred class"}
                   
                   <div>
                        <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
-icon='user'
-header={"Please choose one of the avilable flights below"}
+icon='plane'
+header={"Please choose one of the available departure flights below"}
 
 />
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
@@ -343,5 +357,70 @@ header={"Please choose one of the avilable flights below"}
         
         </div>
         )}
+     
+        if(this.state.containerpicked && this.state.flightpicked ){
+
+          return(
+
+             
+            <div>
+            <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+icon='plane'
+header={"Please choose one of the available return flights below"}
+
+/>
+<table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
+<thead >
+<tr>
+<th>Flight number</th>
+<th>Departure airport</th>
+<th>arrival airport</th>
+<th>Departure time</th>
+<th>Arrival time</th>
+<th>Number of passengers</th>
+<th>Baggage allowance</th>
+<th>Trip duration</th>
+<th>Price</th>
+<th></th>
+</tr>
+</thead>
+
+
+
+
+<tbody  >
+{this.state.returnflights.map((item, key) => {
+return (
+
+
+        <tr key={key}>
+        
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departuretime} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivaltime} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.numberOfPassengers} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
+              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
+             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book(e, item.Number)}    >
+            <Button.Content visible>Book</Button.Content>
+      <Button.Content hidden>
+    <Icon name='plane' />
+    </Button.Content>
+    </Button></td>
+</tr>
+);
+})}
+
+</tbody>
+</table>
+</div>
+
+          )
+
+        }
       }
+
         }
