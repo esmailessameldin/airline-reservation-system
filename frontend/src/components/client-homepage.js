@@ -10,9 +10,13 @@ import { Message } from 'semantic-ui-react'
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.onClick2 = this.onClick2.bind(this);
     this.state = {
       flights:[],
       loaded:false,
+      booked:{},
+      seating:[],
+      ok:null
 
     }
   }
@@ -21,6 +25,19 @@ import { Message } from 'semantic-ui-react'
 onClick(e){
   e.preventDefault();
   window.location='/addflight/'+this.props.match.params.id
+}
+onClick2(e,i,u){
+  e.preventDefault();
+  const btngan={
+    username:this.props.match.params.id,
+    flightNumber:i,
+    booking:u
+  }
+  this.state.ok=window.confirm("Are you sure you want to cancel this flight's reservation ?")
+  if(this.state.ok)
+  axios.post('http://localhost:5000/users/user-cancel-reserved-flights',btngan).then(res=>{
+    alert(res.data)
+  })
 }
 
 componentDidMount(){
@@ -34,7 +51,10 @@ componentDidMount(){
       if(res.data.flights.length>0){
         for (let i = 0; i < res.data.flights.length; i++) { 
           this.state.flights.push(res.data.flights[i].flight)
-         
+          this.state.booked["Bookingnumber"]=res.data.flights[i].Bookingnumber
+          this.state.booked["flightType"]=res.data.flights[i].flightType
+          this.state.booked["seat"]=res.data.flights[i].seat
+          this.state.seating.push(this.state.booked)
           };
       this.setState({
         newname : res.data.name,
@@ -57,6 +77,7 @@ componentDidMount(){
           })
       }
      console.log(this.state.flights)
+     console.log(this.state.seating)
      this.setState({
       loaded:true
      })
@@ -71,6 +92,7 @@ render() {
     var width =120 +'vh';
     if (this.state.loaded){
       console.log(this.state.flights)
+      
 return (<div >
         
   <Message size='massive' color='purple'  style={{padding,right,width, top,position:'fixed'}}
@@ -78,7 +100,7 @@ icon='user'
 header={"Welcome " + this.props.match.params.id + " to your homepage"}
 
 />
-<Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{width:"25vh",position: 'absolute', left: '30%', top: '30%',
+<Button onClick={this.onClick} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '30%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
       <Button.Content visible>Add flight</Button.Content>
       <Button.Content hidden>
@@ -98,6 +120,10 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       <th>Baggage allowance</th>
       <th>Trip duration</th>
       <th>Price</th>
+      <th>Booking Number</th>
+      <th>Flight Type</th>
+      <th>Seat</th>
+      <th></th>
     </tr>
   </thead>
  
@@ -120,6 +146,15 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.seating[key].Bookingnumber} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.seating[key].flightType} </td>
+             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{this.state.seating[key].seat} </td>
+             <td> <Button  onClick={(e) => this.onClick2(e, item.Number,this.state.seating[key].Bookingnumber)} color='purple' content='Primary' animated  >
+      <Button.Content visible>Cancel</Button.Content>
+      <Button.Content hidden>
+        <Icon name='x' />
+      </Button.Content>
+    </Button></td>
            </tr>
          );
        })}

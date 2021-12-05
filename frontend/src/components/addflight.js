@@ -125,7 +125,7 @@ import { RadioButton } from 'react-native-paper';
           e.preventDefault();
           
         this.setState({
-            seat:this.state.seat+(i+1),
+            seat:this.state.seat+(i),
             
          })
          console.log(this.state.seat)
@@ -295,9 +295,11 @@ header={"Please choose one of the avilable flights below"}
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
-             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book(e, item.Number)}   value="register" >
+             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book(e, item.Number)}    >
       <Button.Content visible>Book</Button.Content>
-     
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
     </Button></td>
            </tr>
          );

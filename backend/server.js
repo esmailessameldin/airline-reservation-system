@@ -1,12 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
 require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT || 5000;
-
 app.use(cors());
 app.use(express.json());
 const db= 'mongodb+srv://som3a:som3a@cluster0.xuqp3.mongodb.net/airline-system?retryWrites=true&w=majority'
