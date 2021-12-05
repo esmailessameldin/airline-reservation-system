@@ -138,6 +138,7 @@ import { RadioButton } from 'react-native-paper';
           }
           axios.post('http://localhost:5000/users/user-add-flight',final).then(res=>{
             alert(res.data)
+            window.location='/client-homepage/'+this.props.match.params.id
           })
  
         }, 3000);
