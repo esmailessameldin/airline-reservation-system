@@ -5,6 +5,7 @@ let booking = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
+
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
   
 var logged=req.body.username
@@ -19,6 +20,8 @@ for(var i=0 ;i<k.flights.length;i++){
 
   }
 }
+booking.findOneAndDelete({bookingnumber:booking})
+
 
 var seatclass=seat.split("")
 if(seatclass[0]=="A")
