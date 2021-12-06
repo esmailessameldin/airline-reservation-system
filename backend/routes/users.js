@@ -1,7 +1,7 @@
 const router = require('express').Router();
-let user = require('../Modules/user.js');
-let flight = require("../Modules/flight.js");
-let booking = require("../Modules/booking");
+const user = require('../Modules/user.js');
+const flight = require("../Modules/flight.js");
+const bookings = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
@@ -13,6 +13,7 @@ var booking=req.body.booking
 var seat=''
 var flightnum=req.body.flightNumber
 const k=await user.findOne({name:logged,"flights.Bookingnumber":booking})
+const bye =await bookings.findOneAndDelete({bookingnumber:booking})
 console.log(k)
 for(var i=0 ;i<k.flights.length;i++){
   if(k.flights[i].Bookingnumber==booking){
@@ -20,7 +21,7 @@ for(var i=0 ;i<k.flights.length;i++){
 
   }
 }
-booking.findOneAndDelete({bookingnumber:booking})
+
 
 
 var seatclass=seat.split("")
@@ -36,7 +37,8 @@ if(seatclass[0] == "C")
   seatclass[0]=2;
 }
 const y=await flight.findOneAndUpdate({Number:flightnum},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass[0]+".seats."+seatclass[1]]:false}},{new:true})
-  const l=await user.findOneAndUpdate({name:logged},{$pull:{flights:{Bookingnumber:booking}}},{new:true})
+
+  const l=await user.updateMany({name:logged},{$pull:{flights:{Bookingnumber:booking}}},{new:true})
 var flightNumber=y.Number
 var flightPrice=y.price
 var email =k.email
@@ -123,6 +125,7 @@ router.route('/:id').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/user-add-flight').post(async(req, res) => {
+  console.log(this.body)
       var depseatnumber = req.body.depseat ;
       var depseatclass = depseatnumber.split(" ");
      var username = req.body.username ;
@@ -188,7 +191,7 @@ router.route('/user-add-flight').post(async(req, res) => {
         { new: true }
       )
 
-    const book = await new booking ({
+    const book = await new bookings ({
         username : username ,
         bookingnumber : randomnumber
       })
@@ -197,8 +200,8 @@ router.route('/user-add-flight').post(async(req, res) => {
    console.log(book)
    console.log(x)
    console.log(y)
-
-    await  booking.findOneAndUpdate({ username : username}, {  $push: { flight: {$each: [x,y] }}  } , {new:true})
+console.log(this.body)
+    await  bookings.findOneAndUpdate({ username : username}, {  $push: { flight: {$each: [x,y] }}  } , {new:true})
     .then(() => res.json('flight added!'))
     .catch(err => res.status(400).json('Error: ' + err))
  

@@ -13,10 +13,16 @@ import { RadioButton } from 'react-native-paper';
           constructor(props) {
             super(props);
             this.book=this.book.bind(this)
+            this.book2=this.book2.bind(this)
             this.onClick=this.onClick.bind(this)
             this.onClick2=this.onClick2.bind(this)
             this.onClick3=this.onClick3.bind(this)
             this.onClick4=this.onClick4.bind(this)
+            this.onClick5=this.onClick5.bind(this)
+            this.onClick6=this.onClick6.bind(this)
+            this.onClick7=this.onClick7.bind(this)
+            this.onClickFinisher=this.onClickFinisher.bind(this)
+     
      
             this.state = {
               returnflights : [] ,
@@ -28,20 +34,29 @@ import { RadioButton } from 'react-native-paper';
                 returnf:false
                                     
               },
+ok:null,
               flightNumber:0,
+              flightNumber2:0,
               flightpicked:false,
               containerpicked:false,
               btngana:false,
               selectedflight:null,
+              selectedflight2:null,
               freeseatsFirst:0,
               freeseatsbus:0,
               freeseatseco:0,
+              freeseatsFirst2:0,
+              freeseatsbus2:0,
+              freeseatseco2:0,
               firstlength:0,
               buslength:0,
               class:0,
+              class2:0,
               ecolength:0,
               cabin:[],
+              cabin2:[],
               seat:'',
+              seat2:'',
               
               
               
@@ -51,6 +66,54 @@ import { RadioButton } from 'react-native-paper';
 
 
 
+          book2(e,i){
+            e.preventDefault();
+            console.log(i)
+            this.state.flightNumber2=i
+            const flight={
+              number:i
+            }
+            axios.post('http://localhost:5000/admin/findlflight ',flight).then(res=>{
+
+            console.log(res.data)
+            this.setState({
+              selectedflight2:res.data
+            })
+
+            
+            this.setState({
+           
+              cabin2:this.state.selectedflight2[0].cabin
+              
+            })
+           
+            for(var i=0;i<this.state.cabin2[0].seats.length;i++){
+              if(!this.state.cabin2[0].seats[i]){
+                   this.state.freeseatsFirst2=this.state.freeseatsFirst2+1
+              }
+            }
+            for(var i=0;i<this.state.cabin2[1].seats.length;i++){
+              if(!this.state.cabin2[1].seats[i]){
+                   this.state.freeseatseco2=this.state.freeseatseco2+1
+              }
+            }
+            for(var i=0;i<this.state.cabin2[2].seats.length;i++){
+              if(!this.state.cabin2[2].seats[i]){
+                   this.state.freeseatsbus2=this.state.freeseatsbus2+1
+              }
+            }
+            this.setState({
+              flightpicked:true,
+              btngana:true,
+              containerpicked:false,
+              flightpicked:false,
+             
+            
+            })
+            console.log(this.state)
+            })
+
+          }
           book(e,i){
             e.preventDefault();
             console.log(i)
@@ -159,6 +222,69 @@ import { RadioButton } from 'react-native-paper';
 
         
         }
+        onClick5(e){
+          e.preventDefault();
+          this.setState({
+             seat2:this.state.seat2+'0 ',
+             containerpicked:true,
+            flightpicked:true,
+            class2:0
+          })
+          console.log(this.state.cabin2[this.state.class2].seats)
+        }
+        onClick6(e){
+          e.preventDefault();
+          this.setState({
+            seat2:this.state.seat2+'1 ',
+            containerpicked:true,
+            flightpicked:true,
+            class2:1
+         })
+         console.log(this.state.seat2)
+        }
+        onClick7(e){
+          e.preventDefault();
+          this.setState({
+            seat2:this.state.seat2+'2 ',
+            containerpicked:true,
+            flightpicked:true,
+            class2:2
+         })
+          console.log(this.state)
+        }
+
+        onClickFinisher(e,i){
+          e.preventDefault();
+          
+          this.setState({
+              seat2:this.state.seat2+(i),
+              
+           })
+           console.log(this.state.seat2)
+         
+            setTimeout(() => {  const Finisher={
+              depseat:this.state.seat,
+              username: this.props.match.params.name,
+              depflightnum:this.state.flightNumber,
+              departureflight:"departure",
+              retseat:this.state.seat2,
+              retflightnum:this.state.flightNumber2,
+              retflight: "return"
+            }
+            console.log(Finisher)
+            this.state.ok=window.confirm("Are you sure you want to reserve this trip")
+            if(this.state.ok)
+            axios.post('http://localhost:5000/users/user-add-flight',Finisher).then(res=>{
+           
+             alert(res.data)
+       
+    
+            })
+   
+          }, 3000);
+           
+
+        }
           componentDidMount(){
             console.log(this.state)
           axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
@@ -223,13 +349,13 @@ import { RadioButton } from 'react-native-paper';
           top: '40%',
           position: 'absolute'
       }
-            if(this.state.flightpicked && !this.state.containerpicked){
+            if(this.state.flightpicked && !this.state.containerpicked && !this.state.btngana ){
               return(
                 
                 <div>
                    <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='user'
-header={"Please choose the preferred class"}
+header={"Please choose the preferred class for the departure"}
 
 />
 <Text style={textstyle}>This is the first class cabin and there is {this.state.freeseatsFirst} free seats</Text>
@@ -266,7 +392,7 @@ header={"Please choose the preferred class"}
 
             }
             
-            if(!this.state.flightpicked && !this.state.containerpicked){
+            if(!this.state.flightpicked && !this.state.containerpicked && !this.state.btngana ){
                 return(
                   
                   <div>
@@ -327,7 +453,7 @@ header={"Please choose one of the available departure flights below"}
                   
           }
           
-        if(this.state.containerpicked && !this.state.flightpicked ){
+        if(this.state.containerpicked && !this.state.flightpicked && !this.state.btngana  ){
         return (
         
         <div class="flex-container">
@@ -358,7 +484,7 @@ header={"Please choose one of the available departure flights below"}
         </div>
         )}
      
-        if(this.state.containerpicked && this.state.flightpicked ){
+        if(this.state.containerpicked && this.state.flightpicked && !this.state.btngana ){
 
           return(
 
@@ -404,7 +530,7 @@ return (
               <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
               <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
               <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
-             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book(e, item.Number)}    >
+             <td> <Button  color='purple' content='primary'  animated   onClick={(e) => this.book2(e, item.Number)}    >
             <Button.Content visible>Book</Button.Content>
       <Button.Content hidden>
     <Icon name='plane' />
@@ -421,6 +547,78 @@ return (
           )
 
         }
+ if( !this.state.flightpicked && !this.state.containerpicked && this.state.btngana){
+  return(<div>
+    <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+  icon='user'
+  header={"Please choose the preferred class for the return flight"}
+  
+  />
+  <Text style={textstyle}>This is the first class cabin and there is {this.state.freeseatsFirst2} free seats</Text>
+  <Text style={textstyle2}>This is the economy class cabin and there is {this.state.freeseatsbus2} free seats</Text>
+  <Text style={textstyle3}>This is the business class cabin and there is {this.state.freeseatseco2} free seats</Text>
+  <img class="ui small image" src={firstimage} style = {imagestyle} />
+  <img class="ui small image" src={economyimage} style = {imagestyle2} />
+  <img class="ui small image" src={businessimage} style = {imagestyle3} />
+  <Button  color='purple' onClick={this.onClick5} content='Primary' animated  style = {{position: 'absolute', left: '14%', top: '70%',
+  transform: 'translate(-50%, -50%)'}}  >
+  <Button.Content visible>First class</Button.Content>
+  <Button.Content hidden>
+  <Icon name="hand point right outline" />
+  </Button.Content>
+  </Button><Button  color='purple' onClick={this.onClick6} content='Primary' animated  style = {{position: 'absolute', left: '49%', top: '70%',
+  transform: 'translate(-50%, -50%)'}}  >
+  <Button.Content visible>Economy class </Button.Content>
+  <Button.Content hidden>
+  <Icon name="hand point right outline" />
+  </Button.Content>
+  </Button><Button  color='purple' onClick={this.onClick7} content='Primary' animated  style = {{position: 'absolute', left: '82%', top: '70%',
+  transform: 'translate(-50%, -50%)'}}  >
+  <Button.Content visible>Buisness class</Button.Content>
+  <Button.Content hidden>
+  <Icon name="hand point right outline" />
+  </Button.Content>
+  </Button>
+  
+  
+  
+  
+  </div>)
+   
+ }
+
+ if( this.state.flightpicked && this.state.containerpicked && this.state.btngana){
+return(
+  <div class="flex-container">
+          {this.state.cabin2[this.state.class].seats.map((item, key) => {
+            if(!item)
+         return (
+          <div key={key}>
+    <button  onClick={(e) => this.onClickFinisher(e,key)} class={"ui compact green labeled icon button"} >
+  <i class="plane icon"></i>Seat: {key+1}
+</button>
+        </div>
+        
+        )
+        else{
+          return(
+            <button key={key} class="ui red disabled button">
+  <i class="ban icon"></i>
+  Seat {key+1} is taken
+</button>
+
+          )
+        }
+       })}
+            
+          
+    
+        
+        </div>
+)
+ }
+
+
       }
 
         }

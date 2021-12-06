@@ -15,7 +15,7 @@ import { Message } from 'semantic-ui-react'
     this.state = {
       flights:[],
       loaded:false,
-      booked:{},
+     
       seating:[],
       ok:null
 
@@ -54,15 +54,27 @@ componentDidMount(){
   }
   axios.post('http://localhost:5000/users/find-user',user)
   .then(res=>{ 
-      console.log(this.state.flights)
+      console.log(res.data.flights)
       if(res.data.flights.length>0){
         for (let i = 0; i < res.data.flights.length; i++) { 
           this.state.flights.push(res.data.flights[i].flight)
-          this.state.booked["Bookingnumber"]=res.data.flights[i].Bookingnumber
-          this.state.booked["flightType"]=res.data.flights[i].flightType
-          this.state.booked["seat"]=res.data.flights[i].seat
-          this.state.seating.push(this.state.booked)
+         
           };
+          for (let i = 0; i < res.data.flights.length; i++) { 
+         var   booked={
+          Bookingnumber:res.data.flights[i].Bookingnumber,
+          flightType: res.data.flights[i].flightType,
+          seat:res.data.flights[i].seat
+         
+            }
+            console.log(booked)
+           
+            this.state.seating.push(booked)
+         console.log(this.state.seating)
+         
+           
+            };
+            
       this.setState({
         newname : res.data.name,
         newpassword : res.data.password,
@@ -189,9 +201,9 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 
 />
 
-<div style={{padding:'100px',right:'300px',width:'600px', top:'30%',position:'fixed'}} class="ui segment">
+<div  class="ui segment">
   <div class="ui active inverted dimmer">
-    <div class="ui text loader">Loading please wait</div>
+    <div class="ui text loader">Loading files please wait</div>
   </div>
   <p></p>
 </div>
