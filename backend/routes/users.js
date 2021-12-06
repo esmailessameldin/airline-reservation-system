@@ -11,18 +11,17 @@ router.route('/user-cancel-reserved-flights').post(async (req, res) => {
 var logged=req.body.username
 var booking=req.body.booking
 var seat=''
+var seat2=''
 var flightnum=req.body.flightNumber
-const k=await user.findOne({name:logged,"flights.Bookingnumber":booking})
+const k=await bookings.findOne({bookingnumber:booking})
+
+
+const bookingflights = k.flight 
+console.log(bookingflights)
+seat = bookingflights[0].seat
+seat2 = bookingflights[1].seat
+
 const bye =await bookings.findOneAndDelete({bookingnumber:booking})
-console.log(k)
-for(var i=0 ;i<k.flights.length;i++){
-  if(k.flights[i].Bookingnumber==booking){
-        seat=k.flights[i].seat
-
-  }
-}
-
-
 
 var seatclass=seat.split("")
 if(seatclass[0]=="A")
@@ -36,11 +35,37 @@ if(seatclass[0] == "C")
 {
   seatclass[0]=2;
 }
-const y=await flight.findOneAndUpdate({Number:flightnum},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass[0]+".seats."+seatclass[1]]:false}},{new:true})
+
+var seatclass2=seat2.split("")
+if(seatclass2[0]=="A")
+{
+  seatclass2[0]=0 ;
+} if(seatclass2[0]=="B")
+{
+  seatclass2[0]=1 ;
+}
+if(seatclass2[0] == "C")
+{
+  seatclass2[0]=2;
+}
+
+
+
+
+
+
+
+
+
+
+
+const y=await flight.findOneAndUpdate({Number:bookingflights[0].flight.Number},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass[0]+".seats."+seatclass[1]]:false}},{new:true})
+
+const frawla=await flight.findOneAndUpdate({Number:bookingflights[1].flight.Number},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass2[0]+".seats."+seatclass2[1]]:false}},{new:true})
 
   const l=await user.updateMany({name:logged},{$pull:{flights:{Bookingnumber:booking}}},{new:true})
-var flightNumber=y.Number
-var flightPrice=y.price
+var flightNumber= booking
+var flightPrice=y.price + frawla.price
 var email =k.email
     console.log(l)
     res.send("Reservation cancelled");
@@ -56,7 +81,7 @@ var email =k.email
         from: 'airlinereservationguc@gmail.com',
         to: k.Email,
         subject: 'Cancelled Reseravtion',
-        text: 'Dear Client, you recently cancelled your flight  ' +flightNumber+'  and the amount refundable is  '+flightPrice+" egp"
+        text: 'Dear Client, you recently cancelled your trip with booking number  ' +flightNumber+'  and the amount refundable is  '+flightPrice+" egp"
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -201,7 +226,7 @@ router.route('/user-add-flight').post(async(req, res) => {
    console.log(x)
    console.log(y)
 console.log(this.body)
-    await  bookings.findOneAndUpdate({ username : username}, {  $push: { flight: {$each: [x,y] }}  } , {new:true})
+    await  bookings.findOneAndUpdate({ bookingnumber : randomnumber}, {  $push: { flight: {$each: [x,y] }}  } , {new:true})
     .then(() => res.json('flight added!'))
     .catch(err => res.status(400).json('Error: ' + err))
  
