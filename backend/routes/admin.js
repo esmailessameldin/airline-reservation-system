@@ -109,9 +109,9 @@ router.route("/update-flight").post(async (req, res) => {
   res.send("flight updated successfull");
   console.log(u);
 });
-router.route("/smite-flight").delete(async (req, res) => {
-  const u = await flight.findOneAndDelete({ number: req.body.number });
-  console.log(u);
+router.route("/smite-flight").post(async (req, res) => {
+  const bye =await flight.findOneAndDelete({Number:req.body.number})
+  console.log(bye);
   res.send("donzo");
 });
 router.route("/find-flight").post(async (req, res) => {

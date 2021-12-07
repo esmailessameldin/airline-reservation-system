@@ -99,7 +99,7 @@ render() {
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
           <div className="form-group" > 
-            <label  style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of first class seats: </label>
+            <label  style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>first name: </label>
             <input  type="text"
          
                 required
@@ -111,7 +111,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of economy seats: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>last name: </label>
             <input  type="text"
          
                 required
@@ -123,7 +123,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Number of  business seats: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>passportNumber: </label>
             <input  type="text"
          
                 required
@@ -135,7 +135,7 @@ render() {
           </div>
             
           <div className="form-group" > 
-            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>Departure airport: </label>
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}}>email: </label>
             <input  type="text"
          
                 required

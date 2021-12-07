@@ -11,6 +11,7 @@ import { Message } from 'semantic-ui-react'
     super(props);
     this.onClick = this.onClick.bind(this);
     this.onClick2 = this.onClick2.bind(this);
+    this.onClick3 = this.onClick3.bind(this);
     this.Finduser = this.Finduser.bind(this);
     this.state = {
       flights:[],
@@ -30,6 +31,18 @@ onClick(e){
 onClick2(e,i){
   e.preventDefault();
   window.location='/Update-Flight/'+i
+}
+onClick3(e,i){
+  e.preventDefault();
+  console.log(i)
+  const test={
+    number:i
+  }
+  if(window.confirm("Are you sure you want to delete this flight"))
+  axios.post('http://localhost:5000/admin/smite-flight',test).then(res=>{
+    alert(res.data)
+    window.location.reload(true);
+  })
 }
 
 componentDidMount(){
@@ -85,6 +98,8 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
       <th>Baggage allowance</th>
       <th>Trip duration</th>
       <th>Price</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
  
@@ -110,7 +125,13 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
              <td><Button  onClick={(e) => this.onClick2(e, item.Number)}  color='purple' content='Primary' animated   type="submit" >
       <Button.Content visible>Update this Flight</Button.Content>
       <Button.Content hidden>
-        <Icon name='save' />
+        <Icon name='arrow right' />
+      </Button.Content>
+    </Button>  </td>
+    <td><Button  onClick={(e) => this.onClick3(e, item.Number)}  color='purple' content='Primary' animated   type="submit" >
+      <Button.Content visible>Delete this flight</Button.Content>
+      <Button.Content hidden>
+        <Icon name='arrow right' />
       </Button.Content>
     </Button>  </td>
            </tr>

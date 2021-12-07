@@ -15,6 +15,8 @@ import addflight from './components/addflight'
 import updateflight from './components/updateflight.js'
 import UpdateUser from './components/updateuser.js'
 import Register from './components/registerUser.js'
+import guesthomepage from './components/guesthomepage.js'
+import guestflights from './components/guesttrip.js'
 function App() {
   return (
     <Router>
@@ -31,6 +33,9 @@ function App() {
          <Route  path="/Update-User/:name" exact component={UpdateUser}/>
          <Route  path="/:id/CreateFlight" exact component={createflight}/>
          <Route  path="/admin-homepage/:id" exact component={Adminhomepage}/>
+         <Route  path="/guest-homepage/:name" exact component={guesthomepage}/>
+         <Route  path="/guestFlight" exact component={guestflights}/>
+        
         
     
     </Router>

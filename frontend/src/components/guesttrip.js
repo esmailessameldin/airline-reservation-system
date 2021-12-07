@@ -21,6 +21,7 @@ import { RadioButton } from 'react-native-paper';
             this.onClick5=this.onClick5.bind(this)
             this.onClick6=this.onClick6.bind(this)
             this.onClick7=this.onClick7.bind(this)
+        
             this.onClickFinisher=this.onClickFinisher.bind(this)
             this.onClickLastFinisher = this.onClickLastFinisher.bind(this)
      
@@ -189,13 +190,8 @@ ok:null,
          })
           console.log(this.state)
         }
-        onClick4(e,i){
+        onClick4(e){
           e.preventDefault();
-          
-        this.setState({
-            seat:this.state.seat+(i),
-            
-         })
          console.log(this.state.seat)
        
           setTimeout(() => {  const ret={
@@ -260,7 +256,7 @@ ok:null,
           e.preventDefault();
           
           this.setState({
-              seat2:this.state.seat2+(i),
+             
               containerpicked:false,
               flightpicked:true,
               btngana:true ,
@@ -471,9 +467,10 @@ header={"Please choose one of the available departure flights below"}
             if(!item)
          return (
           <div key={key}>
-    <button  onClick={(e) => this.onClick4(e,key)} class={"ui compact green labeled icon button"} >
-  <i class="plane icon"></i>Seat: {key+1}
+    <button  onClick={(e) => this.onClick4(e,key)} class={"ui compact green disabled icon button"} >
+  <i class="plane icon"></i>You have to register to book flights
 </button>
+ 
         </div>
         
         )
@@ -487,9 +484,13 @@ header={"Please choose one of the available departure flights below"}
           )
         }
        })}
-            
-          
-          
+           
+           <Button  color='purple' content='primary'  animated   style={{position:'absloute',top:'80%',left:'50%'}}   onClick={this.onClick4}  >
+      <Button.Content visible>Go to return flights</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
         
         </div>
         )}
@@ -604,8 +605,8 @@ return(
             if(!item)
          return (
           <div key={key}>
-    <button  onClick={(e) => this.onClickFinisher(e,key)} class={"ui compact green labeled icon button"} >
-  <i class="plane icon"></i>Seat: {key+1}
+    <button  onClick={(e) => this.onClickFinisher(e,key)} class={"ui compact green disabled icon button"} >
+  <i class="plane icon"></i>You have to register to choose a seat {key+1}
 </button>
         </div>
         
@@ -620,7 +621,12 @@ return(
           )
         }
        })}
-            
+            <Button  color='purple' content='primary'  animated   style={{position:'absloute',top:'80%',left:'50%'}}   onClick={this.onClickFinisher}  >
+      <Button.Content visible>Go to return flights</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
           
     
         
@@ -687,7 +693,7 @@ header={"this is the summary of your trip. please confirm your booking "}
 
 
 
-<table class="ui definition table"  style={{padding:'20px',right:'140px',width:'160vh', top:'27%',position:'fixed'}}> 
+<table class="ui definition table"  style={{color:'blue' ,padding:'20px',right:'140px',width:'160vh', top:'27%',position:'fixed'}}> 
   <thead>
     <tr><th></th>
     <th>Flight number</th>
@@ -732,7 +738,7 @@ header={"this is the summary of your trip. please confirm your booking "}
 
 </table>
 
-<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'50%',position:'fixed'}} >
+<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'60%',position:'fixed'}} >
   <div class="value">
     Total Price : {this.state.selectedflight[0].price +this.state.selectedflight2[0].price } EGP
   </div>
@@ -741,13 +747,6 @@ header={"this is the summary of your trip. please confirm your booking "}
   </div>
 </div>
 
-<Button  color='purple' onClick={this.onClickLastFinisher} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
-  transform: 'translate(-50%, -50%)'}}  >
-  <Button.Content visible>Book Trip</Button.Content>
-  <Button.Content hidden>
-  <Icon name="hand point right outline" />
-  </Button.Content>
-  </Button>
 
 
 
