@@ -22,6 +22,7 @@ import { RadioButton } from 'react-native-paper';
             this.onClick6=this.onClick6.bind(this)
             this.onClick7=this.onClick7.bind(this)
             this.onClickFinisher=this.onClickFinisher.bind(this)
+            this.onClickLastFinisher = this.onClickLastFinisher.bind(this)
      
      
             this.state = {
@@ -123,10 +124,12 @@ ok:null,
             }
             axios.post('http://localhost:5000/admin/findlflight ',flight).then(res=>{
 
-            console.log(res.data)
+         
             this.setState({
               selectedflight:res.data
             })
+            console.log(this.state.selectedflight[0].departureAirport)
+
 
             
             this.setState({
@@ -258,11 +261,16 @@ ok:null,
           
           this.setState({
               seat2:this.state.seat2+(i),
+              containerpicked:false,
+              flightpicked:true,
+              btngana:true ,
+
               
-           })
-           console.log(this.state.seat2)
+           })}
+           onClickLastFinisher(e){
+            e.preventDefault();
          
-            setTimeout(() => {  const Finisher={
+           setTimeout(() => {  const Finisher={
               depseat:this.state.seat,
               username: this.props.match.params.name,
               depflightnum:this.state.flightNumber,
@@ -271,6 +279,7 @@ ok:null,
               retflightnum:this.state.flightNumber2,
               retflight: "return"
             }
+
             console.log(Finisher)
             this.state.ok=window.confirm("Are you sure you want to reserve this trip")
             if(this.state.ok)
@@ -284,7 +293,33 @@ ok:null,
           }, 3000);
            
 
-        }
+           }
+         /*  
+         
+           setTimeout(() => {  const Finisher={
+              depseat:this.state.seat,
+              username: this.props.match.params.name,
+              depflightnum:this.state.flightNumber,
+              departureflight:"departure",
+              retseat:this.state.seat2,
+              retflightnum:this.state.flightNumber2,
+              retflight: "return"
+            }
+
+            console.log(Finisher)
+            this.state.ok=window.confirm("Are you sure you want to reserve this trip")
+            if(this.state.ok)
+            axios.post('http://localhost:5000/users/user-add-flight',Finisher).then(res=>{
+           
+             alert(res.data)
+       
+    
+            })
+   
+          }, 3000);
+           */
+
+        
           componentDidMount(){
             console.log(this.state)
           axios.get('http://localhost:5000/admin/get-all-flights').then(res=>{
@@ -616,6 +651,139 @@ return(
         
         </div>
 )
+ }
+
+ if(this.state.flightpicked && !this.state.containerpicked && this.state.btngana)
+ {
+var classa1 = '' ;
+var cabins1 = '' ;
+var seatbtngan1 = this.state.seat.split(" ");
+
+var classa2 = '' ;
+var cabins2 = '' ;
+var seatbtngan2 = this.state.seat2.split(" ");
+
+if(seatbtngan2[0]==0)
+{
+    classa2= "A" + seatbtngan2[1];
+    cabins2 = "Firstclass"
+} if(seatbtngan2[0]==1)
+{
+  classa2= "B" + seatbtngan2[1];
+  cabins2 = "Economy"
+}
+if(seatbtngan2[0] == 2)
+{
+  classa2= "C" + seatbtngan2[1];
+  cabins2 = "Business"
+}
+
+
+
+
+  if(seatbtngan1[0]==0)
+  {
+      classa1= "A" + seatbtngan1[1];
+      cabins1 = "Firstclass"
+  } if(seatbtngan1[0]==1)
+  {
+    classa1= "B" + seatbtngan1[1];
+    cabins1 = "Economy"
+  }
+  if(seatbtngan1[0] == 2)
+  {
+    classa1= "C" + seatbtngan1[1];
+    cabins1 = "Business"
+  }
+
+
+
+
+
+
+
+  return(
+    <div>
+    <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
+icon='plane'
+header={"this is the summary of your trip. please confirm your booking "}
+
+/>
+
+
+
+<table class="ui definition table"  style={{padding:'20px',right:'140px',width:'160vh', top:'27%',position:'fixed'}}> 
+  <thead>
+    <tr><th></th>
+    <th>Flight number</th>
+<th>Departure airport</th>
+<th>arrival airport</th>
+<th>Departure time</th>
+<th>Arrival time</th>
+<th>Seat</th>
+<th>Cabin</th>
+
+
+<th>Price</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td>Departure Flight</td>
+     
+      <td>{this.state.selectedflight[0].Number} </td>
+      <td>{this.state.selectedflight[0].departureAirport} </td>
+      <td>{this.state.selectedflight[0].arrivalAirport} </td>
+      <td>{this.state.selectedflight[0].departuretime} </td>
+      <td>{this.state.selectedflight[0].arrivaltime} </td>
+      <td>{classa1} </td>
+      <td>{cabins1} </td>
+
+      <td>{this.state.selectedflight[0].price} </td>
+
+    </tr>
+    <tr>
+      <td>Return Flight </td>
+      <td>{this.state.selectedflight2[0].Number} </td>
+      <td>{this.state.selectedflight2[0].departureAirport} </td>
+      <td>{this.state.selectedflight2[0].arrivalAirport} </td>
+      <td>{this.state.selectedflight2[0].departuretime} </td>
+      <td>{this.state.selectedflight2[0].arrivaltime} </td>
+      <td>{classa2} </td>
+      <td>{cabins2} </td>
+      <td>{this.state.selectedflight2[0].price} </td>
+
+    </tr>
+</tbody>
+
+</table>
+
+<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'50%',position:'fixed'}} >
+  <div class="value">
+    Total Price : {this.state.selectedflight[0].price +this.state.selectedflight2[0].price } EGP
+  </div>
+  <div class="label">
+    
+  </div>
+</div>
+
+<Button  color='purple' onClick={this.onClickLastFinisher} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
+  transform: 'translate(-50%, -50%)'}}  >
+  <Button.Content visible>Book Trip</Button.Content>
+  <Button.Content hidden>
+  <Icon name="hand point right outline" />
+  </Button.Content>
+  </Button>
+
+
+
+</div>
+
+
+
+  )
+
+
+
  }
 
 
