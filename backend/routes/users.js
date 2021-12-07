@@ -15,7 +15,7 @@ var seat2=''
 var flightnum=req.body.flightNumber
 const k=await bookings.findOne({bookingnumber:booking})
 
-
+const nono=await user.findOne({name:k.username})
 const bookingflights = k.flight 
 console.log(bookingflights)
 seat = bookingflights[0].seat
@@ -69,7 +69,7 @@ var email =k.email
       
       const mailOptions = {
         from: 'airlinereservationguc@gmail.com',
-        to: k.Email,
+        to: nono.Email,
         subject: 'Cancelled Reseravtion',
         text: 'Dear Client, you recently cancelled your trip with booking number  ' +flightNumber+'  and the amount refundable is  '+flightPrice+" egp"
       };
@@ -84,16 +84,16 @@ var email =k.email
  
   });
 router.route("/update-user").post(async (req, res) => {
-  const u = await flight.findOneAndUpdate({name:req.body.name},
-    {
-      
-        firstName:req.body.firstName,
+  const u = await user.findOneAndUpdate(
+    {name:req.body.name},
+    {    firstName:req.body.firstName,
         lastName:req.body.lastName,
         passportNumber:req.body.passportNumber,
         Email:req.body.Email,
     },
     { new: true }
   );
+  if(u)
   res.send("User data updated successfull");
   console.log(u);
 });

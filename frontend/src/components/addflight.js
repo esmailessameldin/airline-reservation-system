@@ -681,7 +681,7 @@ if(seatbtngan2[0] == 2)
     <div>
     <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='plane'
-header={"this is the summary of your trip. please confirm your booking "}
+header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+this.props.match.params.name}
 
 />
 
@@ -732,7 +732,7 @@ header={"this is the summary of your trip. please confirm your booking "}
 
 </table>
 
-<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'50%',position:'fixed'}} >
+<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'60%',position:'fixed'}} >
   <div class="value">
     Total Price : {this.state.selectedflight[0].price +this.state.selectedflight2[0].price } EGP
   </div>
