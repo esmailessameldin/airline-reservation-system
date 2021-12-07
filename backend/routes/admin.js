@@ -94,15 +94,15 @@ router.route("/get-all-flights").get(async (req, res) => {
 });
 router.route("/update-flight").post(async (req, res) => {
   const u = await flight.findOneAndUpdate(
-    { Number: req.params.number },
+    { Number: req.body.flightnumber },
     {
-      Number: req.body.flightnumber,
-      departure: req.body.departure,
-      arrival: req.body.arrival,
-      date: req.body.date,
-      EconomySeats: req.body.EconomySeats,
-      BuinessClassSeats: req.body.BuinessClassSeats,
-      airport: req.body.airport,
+      departureAirport: req.body.departureAirport,
+      arrivalAirport:req.body.arrivalAirport,
+      departuretime : req.body.departuretime,
+      arrivaltime:req.body.arrivaltime,
+      baggageallowance :req.body.baggageallowance,
+      tripDuration :req.body.tripDuration,
+      price: req.body.price,
     },
     { new: true }
   );

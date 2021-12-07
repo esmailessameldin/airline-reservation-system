@@ -12,6 +12,7 @@ import { Message } from 'semantic-ui-react'
     this.onClick = this.onClick.bind(this);
     this.onClick2 = this.onClick2.bind(this);
     this.onClick4= this.onClick4.bind(this);
+    this.onClick5= this.onClick5  .bind(this);
     this.state = {
       flights:[],
       loaded:false,
@@ -103,7 +104,10 @@ componentDidMount(){
   })
   
 }
-  
+  onClick5(e){
+    e.preventDefault();
+    window.location='/Update-User/'+this.props.match.params.id
+  }
 render() {
     var top = 45+ 'px';
     var padding = 23 + 'px';
@@ -134,6 +138,13 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       </Button.Content>
     </Button>
 
+    <Button onClick={this.onClick5} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '40%', top: '30%',
+        transform: 'translate(-50%, -50%)'}}  value="login" >
+      <Button.Content visible>Update user</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
 
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >

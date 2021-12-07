@@ -10,6 +10,7 @@ import { Message } from 'semantic-ui-react'
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.onClick2 = this.onClick2.bind(this);
     this.Finduser = this.Finduser.bind(this);
     this.state = {
       flights:[],
@@ -25,6 +26,10 @@ import { Message } from 'semantic-ui-react'
 onClick(e){
   e.preventDefault();
   window.location='/'+this.props.match.params.id+'/CreateFlight'
+}
+onClick2(e,i){
+  e.preventDefault();
+  window.location='/Update-Flight/'+i
 }
 
 componentDidMount(){
@@ -102,6 +107,12 @@ header={"Welcome " + this.props.match.params.id + " to the admin homepage"}
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
+             <td><Button  onClick={(e) => this.onClick2(e, item.Number)}  color='purple' content='Primary' animated   type="submit" >
+      <Button.Content visible>Update this Flight</Button.Content>
+      <Button.Content hidden>
+        <Icon name='save' />
+      </Button.Content>
+    </Button>  </td>
            </tr>
          );
        })}

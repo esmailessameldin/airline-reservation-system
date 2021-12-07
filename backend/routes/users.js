@@ -49,16 +49,6 @@ if(seatclass2[0] == "C")
   seatclass2[0]=2;
 }
 
-
-
-
-
-
-
-
-
-
-
 const y=await flight.findOneAndUpdate({Number:bookingflights[0].flight.Number},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass[0]+".seats."+seatclass[1]]:false}},{new:true})
 
 const frawla=await flight.findOneAndUpdate({Number:bookingflights[1].flight.Number},{"$inc": { "numberOfPassengers": -1 },$set:{["cabin."+seatclass2[0]+".seats."+seatclass2[1]]:false}},{new:true})
@@ -94,7 +84,7 @@ var email =k.email
  
   });
 router.route("/update-user").post(async (req, res) => {
-  const u = await flight.findOneAndUpdate(
+  const u = await flight.findOneAndUpdate({name:req.body.name},
     {
       
         firstName:req.body.firstName,
@@ -238,7 +228,7 @@ router.route("/find-all-user").get(async (req, res) => {
   });
 
   router.route("/find-all-booking").post(async (req, res) => {
-    const t = await booking.find({})
+    const t = await bookings.find({})
     res.send(t);
     console.log(t);
   });
