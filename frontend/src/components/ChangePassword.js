@@ -54,8 +54,10 @@ export default class ChangePassword extends Component{
                     (res)=>{
 
                         console.log("done !")
-                        alert("Password Changed Successfully !!!")
+                        alert("Password Changed Successfully !!! \n you will now be redirected to the homepage to log in with your new password ")
+                        window.location ="/"
                         
+
                     }
 
                    ).catch((err)=>{console.log(err)}) 

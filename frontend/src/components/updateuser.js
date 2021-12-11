@@ -167,7 +167,7 @@ render() {
       </Button.Content>
     </Button> 
 
-    <Button onClick={this.onChangePasswordButton} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '65%',
+    <Button onClick={this.onChangePasswordButton} color='purple' content='Primary' animated  style = {{width:"30vh",position: 'absolute', left: '27.7%', top: '78%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Change Password</Button.Content>
       <Button.Content hidden>
