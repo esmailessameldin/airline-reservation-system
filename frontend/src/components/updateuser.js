@@ -9,7 +9,9 @@ export default class UpdateUser extends Component {
     this.onChangelastName = this.onChangelastName.bind(this);
     this.onChangepassportNumber = this.onChangepassportNumber.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    
+
+    this.onChangePasswordButton = this.onChangePasswordButton.bind(this);
+
     this.onSubmit=this.onSubmit.bind(this)
     this.state = { 
       firstName:'',
@@ -42,6 +44,11 @@ onChangeEmail(e){
     Email:e.target.value
   })
 }
+onChangePasswordButton(e){
+window.location='/change-password/'+this.props.match.params.name
+
+}
+
   onSubmit(e) {
     e.preventDefault();
 const test ={ 
@@ -159,6 +166,15 @@ render() {
         <Icon name='save' />
       </Button.Content>
     </Button> 
+
+    <Button onClick={this.onChangePasswordButton} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '65%',
+        transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
+      <Button.Content visible>Change Password</Button.Content>
+      <Button.Content hidden>
+        <Icon name='save' />
+      </Button.Content>
+    </Button> 
+
       </div>
     )
   }

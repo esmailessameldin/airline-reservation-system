@@ -145,6 +145,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
         <Icon name='plane' />
       </Button.Content>
     </Button>
+    
 
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >

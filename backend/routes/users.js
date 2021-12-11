@@ -83,6 +83,32 @@ var email =k.email
       });
  
   });
+
+
+router.route("/get-password").post(async (req,res)=>{
+await user.findOne(
+  {name:req.body.name}
+
+).then(
+  (res2)=>{if(!res2) return res.status(404).send("verybad") ;
+  else{
+const hardpass=req.body.password
+if(!hardpass.localeCompare(res2.password)) return res.status(200).send("verygood") ;else{
+  return res.status(400).send("verybad")
+}
+
+
+  } }
+)})
+
+router.route("/change-password").post(async(req,res)=>{
+  const cp =await user.findOneAndUpdate(
+    {name:req.body.name},{password:req.body.password}
+  )
+return res.status(200).send("password changed successfully very nice")
+})
+
+
 router.route("/update-user").post(async (req, res) => {
   const u = await user.findOneAndUpdate(
     {name:req.body.name},
@@ -236,6 +262,13 @@ router.route("/find-all-user").get(async (req, res) => {
 
 router.route("/find-user").post(async (req, res) => {
     const u = await user.findOne({name : req.body.user})
+    
+    res.send(u);
+    console.log(u);
+  });
+
+  router.route("/change-password").post(async (req, res) => {
+    const u = await user.find({})
     
     res.send(u);
     console.log(u);

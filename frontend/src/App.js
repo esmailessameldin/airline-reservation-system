@@ -17,6 +17,9 @@ import UpdateUser from './components/updateuser.js'
 import Register from './components/registerUser.js'
 import guesthomepage from './components/guesthomepage.js'
 import guestflights from './components/guesttrip.js'
+import ChangePassword from './components/ChangePassword';
+
+
 function App() {
   return (
     <Router>
@@ -35,6 +38,8 @@ function App() {
          <Route  path="/admin-homepage/:id" exact component={Adminhomepage}/>
          <Route  path="/guest-homepage/:name" exact component={guesthomepage}/>
          <Route  path="/guestFlight" exact component={guestflights}/>
+         <Route  path="/change-password/:name" exact component={ChangePassword}/> 
+         
         
         
     
