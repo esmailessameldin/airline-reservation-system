@@ -58,6 +58,7 @@ ok:null,
               cabin2:[],
               seat:'',
               seat2:'',
+              firstname:''
               
               
               
@@ -65,7 +66,25 @@ ok:null,
 
           }
 
+          componentDidMount(){
+            console.log(this.props.match.params.name)
+            const user={
+              user:this.props.match.params.name
+            }
+            axios.post('http://localhost:5000/users/find-user',user).then(res=>{
 
+            this.setState({
+                firstname:res.data.firstName
+
+
+            })
+            }
+            
+            )
+          
+          
+          
+          }
 
           book2(e,i){
             e.preventDefault();
@@ -681,7 +700,7 @@ if(seatbtngan2[0] == 2)
     <div>
     <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='plane'
-header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+this.props.match.params.name}
+header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+this.state.firstname}
 
 />
 
