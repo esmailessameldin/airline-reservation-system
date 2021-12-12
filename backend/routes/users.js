@@ -83,8 +83,6 @@ var email =k.email
       });
  
   });
-
-
 router.route("/get-password").post(async (req,res)=>{
 await user.findOne(
   {name:req.body.name}
@@ -100,15 +98,12 @@ if(!hardpass.localeCompare(res2.password)) return res.status(200).send("verygood
 
   } }
 )})
-
 router.route("/change-password").post(async(req,res)=>{
   const cp =await user.findOneAndUpdate(
     {name:req.body.name},{password:req.body.password}
   )
 return res.status(200).send("password changed successfully very nice")
 })
-
-
 router.route("/update-user").post(async (req, res) => {
   const u = await user.findOneAndUpdate(
     {name:req.body.name},
@@ -258,29 +253,68 @@ router.route("/find-all-user").get(async (req, res) => {
     res.send(u);
     console.log(u);
   });
-
-  router.route("/find-all-booking").post(async (req, res) => {
+ router.route("/find-all-booking").post(async (req, res) => {
     const t = await bookings.find({})
     res.send(t);
     console.log(t);
   });
-
-
 router.route("/find-user").post(async (req, res) => {
     const u = await user.findOne({name : req.body.user})
     
     res.send(u);
     console.log(u);
   });
-
   router.route("/change-password").post(async (req, res) => {
     const u = await user.find({})
     
     res.send(u);
     console.log(u);
   });
+router.route("/edit-seat").post(async(req,res)=>{
+  var oldseat=req.body.oldseat
+  var index=req.body.index
+  var olseat = oldseat.split("");
+  var retseatnumber = req.body.retseat ;
+  var retseatclass = retseatnumber.split(" ");
+  var retflightnum = req.body.retflightnum ;
+  var newseat=''
+
+  const l2=await flight.findOneAndUpdate({Number:retflightnum},{$set:{["cabin."+retseatclass[0]+".seats."+retseatclass[1]]:true}},{new:true})
+ 
+  if(olseat[0]=="A")
+{
+  olseat[0]=0 ;
+} if(olseat[0]=="B")
+{
+  olseat[0]=1 ;
+}
+if(olseat[0] == "C")
+{
+  olseat[0]=2;
+}
+  if(retseatclass[0]==0)
+     {
+       newseat = "A" + retseatclass[1];
+     } if(retseatclass[0]==1)
+     {
+      newseat = "B" + retseatclass[1] ;
+     }
+     if(retseatclass[0] == 2)
+     {
+      newseat = "C" + retseatclass[1];
+     }
 
 
 
-  
+const l1=await flight.findOneAndUpdate({Number:retflightnum},{$set:{["cabin."+olseat[0]+".seats."+olseat[1]]:false}},{new:true})
+l1.save()
+
+var usernames=req.body.username
+const test =await flight.findOne({Number:retflightnum})
+const u =await user.findOneAndUpdate({name:usernames},{$set:{["flights."+index+".seat"]:newseat,["flights."+index+".flight"]:test}},{new:true})
+
+res.send("Seat changed")
+
+})
+
 module.exports = router;
