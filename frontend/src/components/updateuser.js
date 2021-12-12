@@ -9,7 +9,9 @@ export default class UpdateUser extends Component {
     this.onChangelastName = this.onChangelastName.bind(this);
     this.onChangepassportNumber = this.onChangepassportNumber.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this);
-
+    this.onChangeaddress = this.onChangeaddress.bind(this);
+    this.onChangecountrycode= this.onChangecountrycode.bind(this);
+    this.onChangetelephonnumber = this.onChangetelephonnumber.bind(this);
     this.onChangePasswordButton = this.onChangePasswordButton.bind(this);
 
     this.onSubmit=this.onSubmit.bind(this)
@@ -18,6 +20,9 @@ export default class UpdateUser extends Component {
       lastName:'',
       passportNumber:'',
       Email:'',
+      address:'',  
+      countrycode:0,  
+      telephonnumber:0,
     }
   }
   onChangefirstName(e){
@@ -30,6 +35,24 @@ onChangelastName(e){
   this.setState({
 
     lastName:e.target.value
+  })
+}
+onChangeaddress(e){
+  this.setState({
+
+    address:e.target.value
+  })
+}
+onChangecountrycode(e){
+  this.setState({
+
+    countrycode:e.target.value
+  })
+}
+onChangetelephonnumber(e){
+  this.setState({
+
+    telephonnumber:e.target.value
   })
 }
 onChangepassportNumber(e){
@@ -57,6 +80,10 @@ const test ={
   lastName:this.state.lastName,
   passportNumber:this.state.passportNumber,
   Email:this.state.Email,
+  address :this.state.address,
+  countrycode :this.state.countrycode,
+  telephonnumber :this.state.telephonnumber,
+
 }
 console.log(test)
 axios.post('http://localhost:5000/users/update-user',test)
@@ -102,7 +129,7 @@ render() {
           <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
            <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to update your info</p>
          </div>
-        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '54%',
+        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '40%',
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
           <div className="form-group" > 
@@ -152,6 +179,42 @@ render() {
                
                 />
           </div>
+
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Home address: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.address}
+                onChange={this.onChangeaddress}
+                className="form-control"
+               
+                />
+          </div>
+
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Telephone number: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.telephonnumber}
+                onChange={this.onChangetelephonnumber}
+                className="form-control"
+               
+                />
+          </div>
+
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Country code: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.countrycode}
+                onChange={this.onChangecountrycode}
+                className="form-control"
+               
+                />
+          </div>
       
           <div>
          
@@ -159,7 +222,7 @@ render() {
   </div>
   
         </form>
-        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '75%', top: '50%',
+        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{width:"17vh",position: 'absolute', left: '50%', top: '70%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Submit</Button.Content>
       <Button.Content hidden>
@@ -167,7 +230,7 @@ render() {
       </Button.Content>
     </Button> 
 
-    <Button onClick={this.onChangePasswordButton} color='purple' content='Primary' animated  style = {{width:"30vh",position: 'absolute', left: '27.7%', top: '78%',
+    <Button onClick={this.onChangePasswordButton} color='purple' content='Primary' animated  style = {{width:"30vh",position: 'absolute', left: '30.7%', top: '70%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Change Password</Button.Content>
       <Button.Content hidden>

@@ -55,7 +55,15 @@ router.route("/create-flight").post(async (req, res) => {
   business["class"] ="business" ;
   for (var i = 0; i < a.length; ++i)
    {     a[i] = false;
+        
+   }
+   for (var i = 0; i < b.length; ++i)
+   {    
          b[i] = false;
+       
+   }
+   for (var i = 0; i < c.length; ++i)
+   {    
          c[i] = false;
    }
   x["seats"] = a;

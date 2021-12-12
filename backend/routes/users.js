@@ -115,6 +115,9 @@ router.route("/update-user").post(async (req, res) => {
     {    firstName:req.body.firstName,
         lastName:req.body.lastName,
         passportNumber:req.body.passportNumber,
+        address:req.body.address,  
+        countrycode:req.body.countrycode,  
+        telephonnumber:req.body.telephonnumber,
         Email:req.body.Email,
     },
     { new: true }
@@ -131,6 +134,9 @@ router.route('/add').post((req, res) => {
         lastName:req.body.lastName,
         passportNumber:req.body.passportNumber,
         Email:req.body.Email,
+        address:req.body.address,  
+        countrycode:req.body.countrycode,  
+        telephonnumber:req.body.telephonnumber,
         });
   u .save()
     .then(() => res.json('User added!'))

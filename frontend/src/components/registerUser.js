@@ -11,7 +11,9 @@ export default class CreateFlight extends Component {
     this.onChangelastname = this.onChangelastname.bind(this);
     this.onChangeemail= this.onChangeemail.bind(this);
     this.onChangepassport = this.onChangepassport.bind(this);
- 
+    this.onChangeaddress = this.onChangeaddress.bind(this);
+    this.onChangecountrycode= this.onChangecountrycode.bind(this);
+    this.onChangetelephonnumber = this.onChangetelephonnumber.bind(this);
     this.onSubmit=this.onSubmit.bind(this)
     this.state = { 
       username: '',
@@ -20,6 +22,9 @@ export default class CreateFlight extends Component {
       lastname: '',
       email: '',
       passport: '',
+      address:'',  
+      countrycode:0,  
+      telephonnumber:0,
      
     
     }
@@ -29,6 +34,24 @@ export default class CreateFlight extends Component {
 
       username:e.target.value
     })
+}
+onChangeaddress(e){
+  this.setState({
+
+    address:e.target.value
+  })
+}
+onChangecountrycode(e){
+  this.setState({
+
+    countrycode:e.target.value
+  })
+}
+onChangetelephonnumber(e){
+  this.setState({
+
+    telephonnumber:e.target.value
+  })
 }
 onChangepassword(e){
   this.setState({
@@ -71,6 +94,9 @@ const test ={
     lastName :this.state.lastname,
     passportNumber:this.state.passport,
     Email :this.state.email,
+    address :this.state.address,
+    countrycode :this.state.countrycode,
+    telephonnumber :this.state.telephonnumber,
  
  
 }
@@ -96,7 +122,7 @@ render() {
           <div class="ui compact message"  style={{color:'purple',padding,right,width, top,position:'fixed'}}>
            <p style={{color: 'purple',fontWeight: "900",fontstyle:'italic'}}>Fill out the form below to create a new flight</p>
          </div>
-        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '30%',
+        <form style = {{width:"100vh",position: 'absolute', left: '45%', top: '40%',
         transform: 'translate(-50%, -50%)'}} onSubmit={this.onSubmit}>
           
          
@@ -171,6 +197,41 @@ render() {
                 />
           </div>
 
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Home address: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.address}
+                onChange={this.onChangeaddress}
+                className="form-control"
+               
+                />
+          </div>
+
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Telephone number: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.telephonnumber}
+                onChange={this.onChangetelephonnumber}
+                className="form-control"
+               
+                />
+          </div>
+
+          <div className="form-group" > 
+            <label style={{color: 'purple',backgroundColor: 'teal',fontWeight: "900",fontstyle:'italic'}} >Country code: </label>
+            <input  type="text"
+         
+                required
+                value={this.state.countrycode}
+                onChange={this.onChangecountrycode}
+                className="form-control"
+               
+                />
+          </div>
           
           
           <div>
@@ -179,7 +240,7 @@ render() {
   </div>
   
         </form>
-        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '45%', top: '60%',
+        <Button onClick={this.onSubmit} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '45%', top: '80%',
         transform: 'translate(-50%, -50%)'}} type="submit" value="login" >
       <Button.Content visible>Submit</Button.Content>
       <Button.Content hidden>
