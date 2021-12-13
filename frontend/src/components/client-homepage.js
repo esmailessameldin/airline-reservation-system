@@ -12,11 +12,12 @@ import { Message } from 'semantic-ui-react'
     this.onClick = this.onClick.bind(this);
     this.onClick2 = this.onClick2.bind(this);
     this.onClick4= this.onClick4.bind(this);
-    this.onClick5= this.onClick5  .bind(this);
+    this.onClick5= this.onClick5.bind(this);
+    this.onclickedit= this.onclickedit.bind(this);
     this.state = {
       flights:[],
       loaded:false,
-     
+    file:{},
       seating:[],
       ok:null
 
@@ -33,6 +34,20 @@ onClick4(e){
   e.preventDefault();
   window.location='/user-find-flight/'+this.props.match.params.id
 }
+onclickedit(e,seat,index,flightnumber){
+
+  e.preventDefault();
+  const btngan={
+    flightseat:seat,
+    flightindex:index,
+    number:flightnumber,
+    username:this.props.match.params.id
+  }
+  this.props.history.push({
+    pathname: '/edit-flight',
+      state:btngan
+  })
+} 
 onClick2(e,i,u){
   e.preventDefault();
   const btngan={
@@ -163,6 +178,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       <th>Flight Type</th>
       <th>Seat</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
  
@@ -194,6 +210,14 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
         <Icon name='x' />
       </Button.Content>
     </Button></td>
+    <td>
+    <Button  onClick={(e) => this.onclickedit(e, this.state.seating[key].seat,key,item.Number)} color='purple' content='Primary' animated  >
+      <Button.Content visible>Change your seat</Button.Content>
+      <Button.Content hidden>
+        <Icon name='arrow right' />
+      </Button.Content>
+    </Button>
+       </td>
            </tr>
          );
        })}

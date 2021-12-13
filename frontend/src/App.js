@@ -18,7 +18,7 @@ import Register from './components/registerUser.js'
 import guesthomepage from './components/guesthomepage.js'
 import guestflights from './components/guesttrip.js'
 import ChangePassword from './components/ChangePassword';
-
+import editflightseat from './components/edit-flight.js'
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
       <Navbar />
 
          <Route  path="/finduser" exact component={finduser}/> 
+         <Route  path="/edit-flight" exact component={editflightseat}/> 
          <Route  path="/addflight/:name" exact component={addflight}/> 
          <Route  path="/user-find-flight/:name" exact component={findflight}/> 
          <Route  path="/register" exact component={Register}/> 
