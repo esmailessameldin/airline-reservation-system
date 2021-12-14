@@ -163,7 +163,7 @@ router.route('/signin').post(async (req,res)=>{
           res.send("wrong password")
         }
       } catch (error) {
-        res.status(500).send(error + "a7a")
+        res.status(500).send(error + "")
       }
  
   
