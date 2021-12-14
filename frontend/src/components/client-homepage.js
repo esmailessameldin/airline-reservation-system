@@ -211,7 +211,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       </Button.Content>
     </Button></td>
     <td>
-    <Button  onClick={(e) => this.onclickedit(e, this.state.seating[key].seat,key,item.Number)} color='purple' content='Primary' animated  >
+    <Button  onClick={(e) => this.onclickedit(e, this.state.seating[key].seat,key,item.Number)} color='green' content='Primary' animated  >
       <Button.Content visible>Change your seat</Button.Content>
       <Button.Content hidden>
         <Icon name='arrow right' />

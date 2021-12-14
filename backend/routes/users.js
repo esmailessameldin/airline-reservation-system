@@ -4,6 +4,7 @@ const flight = require("../Modules/flight.js");
 const bookings = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
 
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
@@ -138,25 +139,39 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err)); 
     console.log(u)
 });
-router.route('/signin').post(async(req,res)=>{
+router.route('/signin').post(async (req,res)=>{
     let status=""
+    const l=  req.body.password;
 
-    user.findOne({name:req.body.username}).then(user=>{
-        if(!user){
-           status="user does not exist please try again"
-           res.send(status)
-        }else{
-            const l= req.body.password;
-            flag2 = l.localeCompare(user.password);
-            if(flag2){
-             status="wrong password"
-             res.send(status)
-            }else{
-                console.log(user)
-               return res.send(user.id+""+status)
-            }
+    const u = await user.find({name:req.body.username}).catch(err=>console.log(err));
+    if (u.length === 0)
+    {
+      return res.status(404).send("cannot find user")
+    }
+
+
+      try {
+        console.log(u)
+        console.log(u[0].password)
+        if (await bcrypt.compare(l , u[0].password))
+        {
+          console.log(u)
+          res.send(u[0].id+""+status)
         }
-    }).catch(err=>console.log(err));
+        else {
+          console.log(u)
+          res.send("wrong password")
+        }
+      } catch (error) {
+        res.status(500).send(error + "a7a")
+      }
+ 
+  
+    
+   
+
+ 
+
 })
 router.route('/:id').get((req, res) => {
     var x=req.params.id

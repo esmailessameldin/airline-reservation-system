@@ -1,4 +1,7 @@
 const mongoose=require('mongoose');
+const bcrypt = require('bcrypt');
+
+
 const schema=mongoose.Schema;
 const UserSchema= new schema({
   name:{type:String,unique:true,required:true},
@@ -13,4 +16,21 @@ const UserSchema= new schema({
   flights:{type:[]}
 });
 
+
+UserSchema.pre('save' , async function (next){
+
+
+  try {
+    
+    const salt = await bcrypt.genSalt(10);
+    const hashpassword = await bcrypt.hash(this.password , salt);
+    this.password = hashpassword
+    next()
+
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
+)
 module.exports= mongoose.model('Users', UserSchema);
