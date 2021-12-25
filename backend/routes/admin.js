@@ -153,4 +153,35 @@ console.log(x)
       console.log(u);
 
   })
+  router.route("/find-flight-Cabin").post(async (req, res) => {
+  const u = await flight.find({departuretime: req.body.departuretime})
+  var v = [];
+  var cabin_selection_mapped;
+  switch(req.body.cabin) {
+    case "A":
+      cabin_selection_mapped = 0
+      break;
+    case "B":
+      cabin_selection_mapped = 1
+      break;
+    case "C":
+      cabin_selection_mapped = 2
+      break;
+    default:
+      cabin_selection_mapped = 1
+  }
+  for (let i = 0; i < u.length; i++) {
+    if (u[i].cabin[cabin_selection_mapped].seats.every(v => v === true))
+    {
+      //pass
+    }
+    else
+    {
+      v.push(u[i]);
+    }
+  }
+  res.send(v);
+  })
+
+
 module.exports = router;
