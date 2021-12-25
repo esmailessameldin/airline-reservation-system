@@ -11,6 +11,7 @@ import { Message } from 'semantic-ui-react'
     super(props);
     this.onClick = this.onClick.bind(this);
     this.onClick2 = this.onClick2.bind(this);
+    this.onClick8 = this.onClick8.bind(this);
     this.onClick4= this.onClick4.bind(this);
     this.onClick5= this.onClick5.bind(this);
     this.onclickedit= this.onclickedit.bind(this);
@@ -33,6 +34,10 @@ onClick(e){
 onClick4(e){
   e.preventDefault();
   window.location='/user-find-flight/'+this.props.match.params.id
+}
+onClick8(e){
+  e.preventDefault();
+  window.location='/find-flight-Cabin/'+this.props.match.params.id
 }
 onclickedit(e,seat,index,flightnumber){
 
@@ -152,6 +157,13 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
         <Icon name='plane' />
       </Button.Content>
     </Button>
+    <Button onClick={this.onClick8} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '72.5%', top: '30%',
+        transform: 'translate(-50%, -50%)'}}  value="login" >
+      <Button.Content visible>Find flight using Cabin</Button.Content>
+      <Button.Content hidden>
+        <Icon name='plane' />
+      </Button.Content>
+    </Button>
 
     <Button onClick={this.onClick5} color='purple' content='Primary' animated  style = {{position: 'absolute', left: '40%', top: '30%',
         transform: 'translate(-50%, -50%)'}}  value="login" >
@@ -164,7 +176,8 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 
 <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
   <thead >
-    <tr>
+    <tr class="clickable "
+		   onclick="window.location='https://www.studytonight.com/'">
       <th>Flight number</th>
       <th>Departure airport</th>
       <th>arrival airport</th>
@@ -191,7 +204,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
 
           
            <tr key={key}>
-                   
+             
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
              <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
