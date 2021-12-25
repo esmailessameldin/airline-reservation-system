@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,29 +19,11 @@ import guesthomepage from './components/guesthomepage.js'
 import guestflights from './components/guesttrip.js'
 import ChangePassword from './components/ChangePassword';
 import editflightseat from './components/edit-flight.js'
-import StripeContainer from './components/StripeContainer';
+import PayForm from './components/showpayform';
 
 function App() {
-
-
-	const [showItem, setShowItem] = useState(false);
-
-
-
-
   return (
     <Router>
-      <div className='App'>
-    <h1>The Spatula Store</h1>
-    {showItem ? (
-      <StripeContainer />
-    ) : (
-      <>
-        <h3>$10.00</h3>
-        <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
-      </>
-    )}
-  </div>
       <Navbar />
 
          <Route  path="/finduser" exact component={finduser}/> 
@@ -60,6 +41,7 @@ function App() {
          <Route  path="/guest-homepage/:name" exact component={guesthomepage}/>
          <Route  path="/guestFlight" exact component={guestflights}/>
          <Route  path="/change-password/:name" exact component={ChangePassword}/> 
+         <Route  path="/visa" exact component={PayForm}/> 
          
         
         
