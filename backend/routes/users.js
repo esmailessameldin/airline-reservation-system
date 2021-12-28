@@ -18,7 +18,7 @@ router.route("/payment").post(async(req,res)=> {
     const payment=await stripe.paymentIntents.create({
       amount,
       currency: "USD",
-      description: "Spatula company",
+      description: "The-OutCasts Co",
       payment_method: id,
       confirm: true
 
