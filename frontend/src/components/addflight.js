@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios, { Axios } from 'axios';
 import style from './image.css'
 import './radio.css'
-import './table.css'
 import firstimage from './firstclass.jpg'
 import economyimage from './economy.jpg'
 import businessimage from './buisnessclass.jpg'
@@ -21,12 +20,6 @@ import { RadioButton } from 'react-native-paper';
             this.onClick4=this.onClick4.bind(this)
             this.onClick5=this.onClick5.bind(this)
             this.onClick6=this.onClick6.bind(this)
-            this.onChangedepartureAirport = this.onChangedepartureAirport.bind(this);
-            this.onChangearrivalAirport = this.onChangearrivalAirport.bind(this);
-            this.onChangedeparturetime = this.onChangedeparturetime.bind(this);
-            this.onChangearrivaltime = this.onChangearrivaltime.bind(this);
-            this.onChangenumberOfPassengers = this.onChangenumberOfPassengers.bind(this);
-            this.onSubmit=this.onSubmit.bind(this)
             this.onClick7=this.onClick7.bind(this)
             this.onClickFinisher=this.onClickFinisher.bind(this)
             this.onClickLastFinisher = this.onClickLastFinisher.bind(this)
@@ -65,80 +58,13 @@ ok:null,
               cabin2:[],
               seat:'',
               seat2:'',
-              firstname:'',
-              departureAirport: '',
-              arrivalAirport: '',
-              departuretime : '',
-              arrivaltime: '',
-              numberOfPassengers: 0 ,
-              showtable:false,
-              flightss:[]
+              firstname:''
               
               
               
             }
 
           }
-          onChangedepartureAirport(e){
-            this.setState({
-          
-              departureAirport:e.target.value
-            })
-          }
-          onChangearrivalAirport(e){
-            this.setState({
-          
-              arrivalAirport:e.target.value
-            })
-          }
-          onChangedeparturetime(e){
-            this.setState({
-          
-              departuretime:e.target.value
-            })
-          }
-          onChangearrivaltime(e){
-            this.setState({
-          
-              arrivaltime:e.target.value
-            })
-          }
-          onChangenumberOfPassengers(e){
-              this.setState({
-            
-                  numberOfPassengers:e.target.value
-              })
-            }
-          
-          
-            onSubmit(e) {
-              e.preventDefault();
-          const test ={ 
-            departureAirport:this.state.departureAirport,
-            arrivalAirport:this.state.arrivalAirport,
-            departuretime:this.state.departuretime,
-            arrivaltime:this.state.arrivaltime,
-          }
-          console.log(test)
-          axios.post('http://localhost:5000/admin/find-flight',test)
-          .then(res=>{
-            console.log(res.data)
-          this.setState({
-          flights:res.data
-          })
-          console.log(this.state.flights)
-          this.setState({
-            showtable:true
-          })
-          
-          
-          })
-          
-          
-            }
-
-
-
 
           componentDidMount(){
             console.log(this.props.match.params.name)
@@ -360,7 +286,7 @@ ok:null,
 
               
            })}
-           onClickLastFinisher(e,i){
+           onClickLastFinisher(e){
             e.preventDefault();
          
            setTimeout(() => {  const Finisher={
@@ -379,10 +305,7 @@ ok:null,
             axios.post('http://localhost:5000/users/user-add-flight',Finisher).then(res=>{
            
              alert(res.data)
-             this.props.history.push({
-              pathname: '/edit-flight',
-                state:i
-            })
+       
     
             })
    
@@ -455,18 +378,10 @@ ok:null,
           top: '40%',
           position: 'absolute'
       }
-
-
-
-//cabin choice for the departure flight
-      
-            if(this.state.flightpicked && !this.state.containerpicked && !this.state.btngana && !this.state.showtable ){
+            if(this.state.flightpicked && !this.state.containerpicked && !this.state.btngana ){
               return(
                 
-                <div>'
-                <button  style={{top:'5%',left:'97%',position:'absolute'}} class="circular ui icon button">
-  <i class="angle left icon"></i>
-</button>
+                <div>
                    <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
 icon='user'
 header={"Please choose the preferred class for the departure"}
@@ -505,8 +420,8 @@ header={"Please choose the preferred class for the departure"}
               )
 
             }
-            //choosing the departure flight 
-            if(!this.state.flightpicked && !this.state.containerpicked && !this.state.btngana && !this.state.showtable  ){
+            
+            if(!this.state.flightpicked && !this.state.containerpicked && !this.state.btngana ){
                 return(
                   
                   <div>
@@ -566,17 +481,11 @@ header={"Please choose one of the available departure flights below"}
                 )
                   
           }
-          //choosing the seat for the departure flight
-        if(this.state.containerpicked && !this.state.flightpicked && !this.state.btngana && !this.state.showtable   ){
-        return (
-           
-        <div class="grid-container">
-            <Message size='small' color='purple'  style={{padding,left:'30%',width:'500px', top,position:'fixed'}}
-icon='user'
-header={"Please choose the preferred seat for the departure flight"}
-
-/>
           
+        if(this.state.containerpicked && !this.state.flightpicked && !this.state.btngana  ){
+        return (
+        
+        <div class="flex-container">
           {this.state.cabin[this.state.class].seats.map((item, key) => {
             if(!item)
          return (
@@ -603,8 +512,8 @@ header={"Please choose the preferred seat for the departure flight"}
         
         </div>
         )}
-     //choosing the return flight
- if(this.state.containerpicked && this.state.flightpicked && !this.state.btngana && !this.state.showtable  ){
+     
+        if(this.state.containerpicked && this.state.flightpicked && !this.state.btngana ){
 
           return(
 
@@ -667,9 +576,7 @@ return (
           )
 
         }
-
-  //cabin choice for the return flight
- if( !this.state.flightpicked && !this.state.containerpicked && this.state.btngana && !this.state.showtable ){
+ if( !this.state.flightpicked && !this.state.containerpicked && this.state.btngana){
   return(<div>
     <Message size='small' color='purple'  style={{padding,right,width, top,position:'fixed'}}
   icon='user'
@@ -708,15 +615,10 @@ return (
   </div>)
    
  }
-//choosing the seat for the return flight
- if( this.state.flightpicked && this.state.containerpicked && this.state.btngana && !this.state.showtable ){
-return(
-  <div class="grid-container">
-       <Message size='small' color='purple'  style={{padding,left:'30%',width:'500px', top,position:'fixed'}}
-icon='user'
-header={"Please choose the preferred seat for the return flight"}
 
-/>
+ if( this.state.flightpicked && this.state.containerpicked && this.state.btngana){
+return(
+  <div class="flex-container">
           {this.state.cabin2[this.state.class].seats.map((item, key) => {
             if(!item)
          return (
@@ -744,8 +646,8 @@ header={"Please choose the preferred seat for the return flight"}
         </div>
 )
  }
-//trip summary
- if(this.state.flightpicked && !this.state.containerpicked && this.state.btngana && !this.state.showtable )
+
+ if(this.state.flightpicked && !this.state.containerpicked && this.state.btngana)
  {
 var classa1 = '' ;
 var cabins1 = '' ;
@@ -804,7 +706,7 @@ header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+
 
 
 
-<table class="som3a table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}> 
+<table class="ui definition table"  style={{padding:'20px',right:'140px',width:'160vh', top:'27%',position:'fixed'}}> 
   <thead>
     <tr><th></th>
     <th>Flight number</th>
@@ -849,8 +751,8 @@ header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+
 
 </table>
 
-<div class="ui statistic"  style={{padding:'20px',right:'140px',width:'160vh', top:'60%',position:'fixed'}} >
-  <div class="value"     color="white">
+<div class="ui statistic" style={{padding:'20px',right:'140px',width:'160vh', top:'60%',position:'fixed'}} >
+  <div class="value">
     Total Price : {this.state.selectedflight[0].price +this.state.selectedflight2[0].price } EGP
   </div>
   <div class="label">
@@ -858,7 +760,7 @@ header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+
   </div>
 </div>
 
-<Button  color='white' onClick={(e) => this.onClickLastFinisher(e,this.state.selectedflight[0].price +this.state.selectedflight2[0].price)} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
+<Button  color='purple' onClick={this.onClickLastFinisher} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
   transform: 'translate(-50%, -50%)'}}  >
   <Button.Content visible>Book Trip</Button.Content>
   <Button.Content hidden>
@@ -873,60 +775,12 @@ header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+
 
 
   )
- 
 
 
 
  }
-//searching for the desired return flight
- if(this.state.showtable){
-  return(
-  <table class="ui striped inverted blue   table"   style={{padding:'20px',right:'140px',width:'160vh', top:'32%',position:'fixed'}}>
-  <thead >
-    <tr>
-      <th>Flight number</th>
-      <th>Departure airport</th>
-      <th>arrival airport</th>
-      <th>Departure time</th>
-      <th>Arrival time</th>
-      <th>Number of passengers</th>
-      <th>Baggage allowance</th>
-      <th>Trip duration</th>
-      <th>Price</th>
-    </tr>
-  </thead>
- 
-   
-  
-
-<tbody  >
-       {this.state.flights.map((item, key) => {
-         return (
-
-          
-           <tr key={key}>
-                   
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.Number} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departureAirport} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivalAirport} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.departuretime} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.arrivaltime} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.numberOfPassengers} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.baggageallowance} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.tripDuration} </td>
-             <td style={{color: 'white',fontWeight: "900",fontstyle:'italic'}}>{item.price} </td>
-           </tr>
-         );
-       })}
-     
-     </tbody>
-</table>
-  )
-}
-
-  }
 
 
       }
 
-        
+        }

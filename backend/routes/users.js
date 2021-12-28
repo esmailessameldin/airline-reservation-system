@@ -67,7 +67,6 @@ var flightNumber= booking
 var flightPrice=y.price + frawla.price
 var email =k.email
     console.log(l)
-clg
     res.send("Reservation cancelled");
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -76,7 +75,7 @@ clg
           pass: '@@@123456789'
         }
       });
-    
+      
       const mailOptions = {
         from: 'airlinereservationguc@gmail.com',
         to: nono.Email,
@@ -327,7 +326,7 @@ if(olseat[0] == "C")
      {
       newseat = "C" + retseatclass[1];
      }
-d
+
 
 
 const l1=await flight.findOneAndUpdate({Number:retflightnum},{$set:{["cabin."+olseat[0]+".seats."+olseat[1]]:false}},{new:true})

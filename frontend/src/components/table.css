@@ -3,21 +3,11 @@ tbody {
   height: 250px;
   overflow: auto;
   width: 100%;
- 
-
 }
- 
 
-.som3a-table{
-
-  color: blueviolet;
-  background-color: blueviolet;
-}
 thead,
 tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
- 
- 
 }
