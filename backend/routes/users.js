@@ -7,11 +7,6 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
 
-
-
-
-
-
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
   
 var logged=req.body.username
@@ -145,9 +140,6 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err)); 
     console.log(u)
 });
-
-
-
 router.route('/signin').post(async (req,res)=>{
     let status=""
     const l=  req.body.password;
@@ -272,9 +264,6 @@ console.log(this.body)
     .catch(err => res.status(400).json('Error: ' + err))
  
 })
-
-
-
 router.route("/find-all-user").get(async (req, res) => {
     const u = await user.find({})
     res.send(u);
