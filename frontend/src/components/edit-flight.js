@@ -240,12 +240,12 @@ if(!this.state.seatpicked)
   </div>)
 if(this.state.seatpicked)
     return (
-      <div class="flex-container">
+      <div class="flex-container" style={{width:'80vh',left:'30%'}}>
       {this.state.cabin[this.state.class].seats.map((item, key) => {
         if(!item)
      return (
       <div key={key}>
-<button  onClick={(e) => this.onSubmit(e,key)} class={"ui compact green labeled icon button"} >
+<button  style={{width:"20vh"}} onClick={(e) => this.onSubmit(e,key)} class={"ui compact green labeled icon button"} >
 <i class="plane icon"></i>Seat: {key+1}
 </button>
     </div>
@@ -253,7 +253,7 @@ if(this.state.seatpicked)
     )
     else{
       return(
-        <button key={key} class="ui red disabled button">
+        <button style={{width:'20vh'}} key={key} class="ui red disabled button">
 <i class="ban icon"></i>
 Seat {key+1} is taken
 </button>

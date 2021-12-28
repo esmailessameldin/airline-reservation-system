@@ -40,7 +40,7 @@ function App() {
          <Route  path="/guest-homepage/:name" exact component={guesthomepage}/>
          <Route  path="/guestFlight" exact component={guestflights}/>
          <Route  path="/change-password/:name" exact component={ChangePassword}/> 
-         
+         <Route  path="/payment" exact component={payment}/> 
         
         
     
