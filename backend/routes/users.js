@@ -5,39 +5,6 @@ const bookings = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
-const bodyParser =require("body-parser");
-
-
-router.route("/payment").post(async(req,res)=> {
-  let amount=req.body.amount
-  let  id=req.body.id
-  
-  try{
-
-    const payment=await stripe.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "The-OutCasts Co",
-      payment_method: id,
-      confirm: true
-
-    })
-    console.log("Payment",payment)
-    res.json({
-      message:"Payment Successful",
-      success:true
-    })
-  }catch(error){
-    console.log("Error",error)
-    res.json({
-      message:"Payment Failed",
-      success:false
-    })
-  }
-})
-
-
 
 
 

@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const stripe = require('stripe')("sk_test_51K6h77KdJWHdHhMRgAiJjmiVqVT5dbDrWHQUkG2N0OlKEuT9UUNTc4xviu9Xhm0kf0LPVcTPk3h9aN1xj2WdW9S700TEUPauSL");
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
@@ -30,31 +29,6 @@ const UserRouter = require('./routes/users');
 app.use('/admin', AdminRouter);
 app.use('/users', UserRouter);
 
-
-app.post("/payment", cors(), async (req, res) => {
-	let { amount, id } = req.body
-	try {
-    console.log(process.env.STRIPE_SECRET_TEST)
-		const payment = await stripe.paymentIntents.create({
-			amount,
-			currency: "USD",
-			description: "Spatula company",
-			payment_method: id,
-			confirm: true
-		})
-		console.log("Payment", payment)
-		res.json({
-			message: "Payment successful",
-			success: true
-		})
-	} catch (error) {
-		console.log("Error", error)
-		res.json({
-			message: "Payment failed",
-			success: false
-		})
-	}
-})
 
 
 
