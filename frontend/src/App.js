@@ -56,6 +56,7 @@ function App() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
          <Route  path="/payment" exact component={payment}/> 
 =======
 <<<<<<< HEAD
@@ -69,6 +70,9 @@ function App() {
          
 >>>>>>> 2cda4c3f1c30ce5100408bbff3e2ebbe935030df
 >>>>>>> parent of ba10554 (merge)
+=======
+         
+>>>>>>> parent of 8c87a9e (no)
 =======
          
 >>>>>>> parent of 8c87a9e (no)
