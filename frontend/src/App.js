@@ -19,6 +19,11 @@ import guesthomepage from './components/guesthomepage.js'
 import guestflights from './components/guesttrip.js'
 import ChangePassword from './components/ChangePassword';
 import editflightseat from './components/edit-flight.js'
+<<<<<<< HEAD
+=======
+import findFlightCabin from './components/find-flight-Cabin'
+
+>>>>>>> parent of ba10554 (merge)
 
 function App() {
   return (
@@ -40,7 +45,16 @@ function App() {
          <Route  path="/guest-homepage/:name" exact component={guesthomepage}/>
          <Route  path="/guestFlight" exact component={guestflights}/>
          <Route  path="/change-password/:name" exact component={ChangePassword}/> 
+<<<<<<< HEAD
          <Route  path="/payment" exact component={payment}/> 
+=======
+<<<<<<< HEAD
+         <Route  path="/payment" exact component={payment}/> 
+=======
+         <Route  path="/find-flight-Cabin/:name" exact component={findFlightCabin}/> 
+         
+>>>>>>> 2cda4c3f1c30ce5100408bbff3e2ebbe935030df
+>>>>>>> parent of ba10554 (merge)
         
         
     

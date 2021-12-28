@@ -5,6 +5,14 @@ const bookings = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> parent of ba10554 (merge)
 
 
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
