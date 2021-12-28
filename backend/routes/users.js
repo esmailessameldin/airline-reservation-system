@@ -5,10 +5,67 @@ const bookings = require("../Modules/booking");
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 
 
+router.route("/payment").post(async(req,res)=> {
+  let amount=req.body.amount
+  let  id=req.body.id
+  let name =req.body.name
+  console.log(name)
+  const b=await user.findOne({name:name})
+  console.log(b.email)
+  amount = amount*100
+  try{
 
+    const payment=await stripe.paymentIntents.create({
+      amount,
+      currency: "EGP",
+      description: "The-OutCasts Co",
+      payment_method: id,
+      confirm: true
+
+    })
+    console.log("Payment",payment)
+    res.json({
+      message:"Payment Successful",
+      success:true
+    })
+  }catch(error){
+    console.log("Error",error)
+    res.json({
+      message:"Payment Failed",
+      success:false
+    })
+  }
+
+ 
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'airlinereservationguc@gmail.com',
+          pass: '@@@123456789'
+        }
+      });
+      
+      const mailOptions = {
+        from: 'airlinereservationguc@gmail.com',
+        to:b.Email ,
+        subject: 'Payment',
+        text: "dear client, your latest payment for "+amount/100+" was successful have a safe flight !"
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+ 
+})
 
 
 

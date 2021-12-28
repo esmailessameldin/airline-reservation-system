@@ -39,7 +39,8 @@
     "react-router": "^6.0.2",
     "react-router-dom": "^5.2.0",
     "request": "^2.79.0",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "stripe": "^8.195.0"
   },
   "devDependencies": {
     "style-loader": "^3.3.1"

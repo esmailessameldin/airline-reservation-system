@@ -286,7 +286,7 @@ ok:null,
 
               
            })}
-           onClickLastFinisher(e){
+           onClickLastFinisher(e,i){
             e.preventDefault();
          
            setTimeout(() => {  const Finisher={
@@ -299,13 +299,19 @@ ok:null,
               retflight: "return"
             }
 
-            console.log(Finisher)
+            console.log(i)
             this.state.ok=window.confirm("Are you sure you want to reserve this trip")
             if(this.state.ok)
             axios.post('http://localhost:5000/users/user-add-flight',Finisher).then(res=>{
            
              alert(res.data)
-       
+             this.props.history.push({
+              pathname: '/visa/'+this.props.match.params.name,
+               state:{
+                 amount:i,
+                 name:this.props.match.params.name
+               }
+            })
     
             })
    
@@ -485,7 +491,12 @@ header={"Please choose one of the available departure flights below"}
         if(this.state.containerpicked && !this.state.flightpicked && !this.state.btngana  ){
         return (
         
-        <div class="flex-container">
+        <div class="grid-container">
+            <Message size='small' color='purple'  style={{ width:'500px',right:'35%', top:'10%',position:'absloute'}}
+icon='user'
+header={"Please choose the preferred seat for the departure"}
+
+/>
           {this.state.cabin[this.state.class].seats.map((item, key) => {
             if(!item)
          return (
@@ -618,7 +629,12 @@ return (
 
  if( this.state.flightpicked && this.state.containerpicked && this.state.btngana){
 return(
-  <div class="flex-container">
+  <div class="grid-container">
+     <Message size='small' color='purple'  style={{ width:'500px',right:'35%', top:'10%',position:'absloute'}}
+icon='user'
+header={"Please choose the preferred seat for the return flight"}
+
+/>
           {this.state.cabin2[this.state.class].seats.map((item, key) => {
             if(!item)
          return (
@@ -760,7 +776,7 @@ header={"this is the summary of your trip. please confirm your booking  Mr/Mrs"+
   </div>
 </div>
 
-<Button  color='purple' onClick={this.onClickLastFinisher} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
+<Button  color='purple'onClick={(e) => this.onClickLastFinisher(e,this.state.selectedflight[0].price +this.state.selectedflight2[0].price)} content='Primary' animated  style = {{position: 'absolute', left: '50%', top: '80%',
   transform: 'translate(-50%, -50%)'}}  >
   <Button.Content visible>Book Trip</Button.Content>
   <Button.Content hidden>

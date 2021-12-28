@@ -20,6 +20,7 @@ import guestflights from './components/guesttrip.js'
 import ChangePassword from './components/ChangePassword';
 import editflightseat from './components/edit-flight.js'
 import findFlightCabin from './components/find-flight-Cabin'
+import PayForm from './components/showpayform';
 
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
          <Route  path="/guestFlight" exact component={guestflights}/>
          <Route  path="/change-password/:name" exact component={ChangePassword}/> 
          <Route  path="/find-flight-Cabin/:name" exact component={findFlightCabin}/> 
-         
+         <Route  path="/visa/:name" exact component={PayForm}/> 
         
         
     
