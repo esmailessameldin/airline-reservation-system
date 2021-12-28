@@ -15,6 +15,7 @@ import { Message } from 'semantic-ui-react'
     this.onClick4= this.onClick4.bind(this);
     this.onClick5= this.onClick5.bind(this);
     this.onclickedit= this.onclickedit.bind(this);
+    this.onclickeditinerary= this.onclickeditinerary.bind(this);
     this.state = {
       flights:[],
       loaded:false,
@@ -25,7 +26,18 @@ import { Message } from 'semantic-ui-react'
     }
   }
   
-  
+  onclickeditinerary(e,i){
+    e.preventDefault();
+    const user={
+      name:this.props.match.params.id,
+      number:i
+    }
+axios.post('http://localhost:5000/users/path',user).then(res=>{
+alert('itinerary sent ! ' )
+
+})
+
+  }
 onClick(e){
   e.preventDefault();
   window.location='/addflight/'+this.props.match.params.id
@@ -192,6 +204,7 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       <th>Seat</th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
  
@@ -224,13 +237,19 @@ header={"Welcome " + this.props.match.params.id + " to your homepage"}
       </Button.Content>
     </Button></td>
     <td>
-    <Button  onClick={(e) => this.onclickedit(e, this.state.seating[key].seat,key,item.Number)} color='green' content='Primary' animated  >
+    <Button  onClick={(e) => this.onclickedit(e, this.state.seating[key].seat,key,item.Number)} color='purple' content='Primary' animated  >
       <Button.Content visible>Change your seat</Button.Content>
       <Button.Content hidden>
         <Icon name='arrow right' />
       </Button.Content>
     </Button>
        </td>
+       <td><Button  onClick={(e) => this.onclickeditinerary(e, item.Number)} color='purple' content='Primary' animated  >
+      <Button.Content visible>Email this itinerary</Button.Content>
+      <Button.Content hidden>
+        <Icon name='arrow right' />
+      </Button.Content>
+    </Button></td>
            </tr>
          );
        })}

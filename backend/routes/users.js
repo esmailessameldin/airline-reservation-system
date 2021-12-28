@@ -66,7 +66,36 @@ router.route("/payment").post(async(req,res)=> {
       });
  
 })
+router.route("/path").post(async(req,res)=>{
+const u=await flight.findOne({Number:req.body.number})
+const b=await user.findOne({name:req.body.name})
 
+
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'airlinereservationguc@gmail.com',
+      pass: '@@@123456789'
+    }
+  });
+  
+  const mailOptions = {
+    from: 'airlinereservationguc@gmail.com',
+    to:b.Email ,
+    subject: 'itinerary',
+    text: "dear client, your itinerary for your flight is from "+u.departureAirport+" to "+u.arrivalAirport
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+})
 
 
 router.route('/user-cancel-reserved-flights').post(async (req, res) => {
