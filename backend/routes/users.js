@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of ba10554 (merge)
 
 
 

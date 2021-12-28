@@ -20,6 +20,11 @@ import guestflights from './components/guesttrip.js'
 import ChangePassword from './components/ChangePassword';
 import editflightseat from './components/edit-flight.js'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import findFlightCabin from './components/find-flight-Cabin'
+
+>>>>>>> parent of ba10554 (merge)
 =======
 import findFlightCabin from './components/find-flight-Cabin'
 
@@ -48,15 +53,28 @@ function App() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
          <Route  path="/payment" exact component={payment}/> 
 =======
 <<<<<<< HEAD
          <Route  path="/payment" exact component={payment}/> 
 =======
+=======
+         <Route  path="/payment" exact component={payment}/> 
+=======
+>>>>>>> parent of ba10554 (merge)
          <Route  path="/find-flight-Cabin/:name" exact component={findFlightCabin}/> 
          
 >>>>>>> 2cda4c3f1c30ce5100408bbff3e2ebbe935030df
 >>>>>>> parent of ba10554 (merge)
+=======
+         
+>>>>>>> parent of 8c87a9e (no)
+=======
+         
+>>>>>>> parent of 8c87a9e (no)
 =======
          
 >>>>>>> parent of 8c87a9e (no)
