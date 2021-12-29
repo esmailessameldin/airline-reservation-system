@@ -39,9 +39,7 @@ router.route("/payment").post(async(req,res)=> {
       success:false
     })
   }
-
  
-
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
